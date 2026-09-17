@@ -1,0 +1,25 @@
+{
+    "NAME_ORGANIZATION": "ООО Ромашка",
+    "ADDRESS": "",
+    "URL_DB": "",
+    "NAME_DB": "",
+    "LOGIN_DB": "",
+    "PASSWORD_DB": "",
+    "OPENING_HOURS":"",
+    "URL_SERVICE_1":"",
+    "URL_SERVICE_2":"",
+    "URL_SERVICE_3":"",
+    "URL_SERVICE_4":"",
+    "RESTAURANTS":[
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""},
+        {"NAME":"", "ADDRESS":"","OPENING_HOURS":"","MANAGER":""}
+    ]
+}
