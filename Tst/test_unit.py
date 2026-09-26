@@ -14,29 +14,29 @@ import pytest
 
 
 # тестовая сущность
-class test_entities(unit):
+class test_unit(unit):
     pass
 
 def test_unit_id_not_null():
     """After init model his uuid not empty"""
     # Подготовака
-    entity = test_entities()
+    entity = test_unit()
     result = entity.id
 
     assert result != ""
 
 def test_unit_unique():
     """Two created models get other unique uuid"""
-    entity1 = test_entities()
-    entity2 = test_entities()
+    entity1 = test_unit()
+    entity2 = test_unit()
 
     assert entity1.id != entity2.id
 
 
 def test_unit_two_work():
     """After getting the same uuid for two models, they must be the same"""
-    entity1 = test_entities()
-    entity2 = test_entities()
+    entity1 = test_unit()
+    entity2 = test_unit()
 
     entity1.id = "fff"
     entity2.id = "fff"
@@ -44,7 +44,7 @@ def test_unit_two_work():
     assert entity2.id == entity1.id
 
 def test_argument_exception_witn_empty_name():
-    entity = test_entities()
+    entity = test_unit()
     empty_name = ""
 
     with pytest.raises(arguments_exception) as exception:
