@@ -3,7 +3,7 @@ from Src.Models.unit_of_measurement_model import unit_of_measurement_model
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
 
-class building_model(unit):
+class building(unit):
     """It's common class for all buildings in the system"""
     __square: float = 0
     __address: str = ""
