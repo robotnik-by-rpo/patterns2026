@@ -1,5 +1,5 @@
 from Src.Core.exception import arguments_exception
-from Src.Models.building_model import building_model
+from Src.Core.building_model import building_model
 from Src.Models.organization_model import organization_model
 from Src.Models.unit_of_measurement_model import unit_of_measurement_model
 from Src.Models.warehouse_model import warehouse_model

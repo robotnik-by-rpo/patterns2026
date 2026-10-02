@@ -1,4 +1,4 @@
-from Src.Models.building_model import building_model
+from Src.Core.building_model import building_model
 from Src.Core.exception import arguments_exception
 from Src.Models.unit_of_measurement_model import unit_of_measurement_model
 import pytest

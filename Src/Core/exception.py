@@ -10,3 +10,7 @@ class arguments_exception(Exception):
 
     def __str__(self):
         return f"Error: Wrong argument {self.__field}\n{self.__msg}\n{self.__stack_trace}"
+    
+class operation_exception(arguments_exception):
+    def __str__(self):
+        return f"Error: Wrong operation {self.__field}\n{self.__msg}\n{self.__stack_trace}"
