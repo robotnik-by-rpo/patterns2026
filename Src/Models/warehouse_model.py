@@ -1,5 +1,5 @@
 from Src.Core.abc_data import unit
-from Src.Core.building_model import building_model
+from Src.Core.building import building
 from Src.Models.organization_model import organization_model
 from Src.Core.exception import arguments_exception
 from Src.Core.validate import validate
@@ -7,12 +7,12 @@ from Src.Core.validate import validate
 class warehouse_model(unit):
     """It's class for implementation warehouse model"""
     __warehouse_owner: organization_model
-    __description_of_building: building_model
+    __description_of_building: building
 
     def __init__(self, 
                  name: str, 
                  warehouse_owner: organization_model, 
-                 description: building_model):
+                 description: building):
         
         super().__init__()
         self.name = name
@@ -40,12 +40,12 @@ class warehouse_model(unit):
                                                                arguments_exception)
 
     @property
-    def description_of_building(self)->building_model:
+    def description_of_building(self)->building:
         """Getting description of building"""
         return self.__description_of_building
     
     @description_of_building.setter
-    def description_of_building(self, new_description_of_building: building_model) -> None:
+    def description_of_building(self, new_description_of_building: building) -> None:
         """Setting description of building"""
         self.__description_of_building = validate.validated_null_value(new_description_of_building,
                                                                        "description",
