@@ -9,7 +9,7 @@ def test_nomenclature_model_name_initing():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
 
     assert n.name == "Блюдо 1"
 
@@ -18,7 +18,7 @@ def test_nomenclature_model_full_name_initing():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
 
     assert n.full_name == "Блюдо 1 от шефа"
 
@@ -27,7 +27,7 @@ def test_nomenclature_model_group_initing():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
 
     assert n.group_of_nomenclature == group
     
@@ -36,7 +36,7 @@ def test_nomenclature_model_base_unit_initing():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
 
     assert n.base_unit == u2
 
@@ -45,9 +45,9 @@ def test_nomenclature_model_type_of_position_initing():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
 
-    assert n.type_of_pos == "блюдо"
+    assert n.type_of_pos == "dish"
 
 
 def test_nomenclature_model_name_null():
@@ -56,7 +56,7 @@ def test_nomenclature_model_name_null():
         group = group_nomenclature_model("Заказ")
         u1 = unit_of_measurement_model("грамм",1)
         u2 = unit_of_measurement_model("кг",1000, u1)
-        _ = nomenclature_model(None,"Блюдо 1 от шефа", group,u2,"блюдо")
+        _ = nomenclature_model(None,"Блюдо 1 от шефа", group,u2,"dish")
 
     assert "Wrong argument" in str(exception.value)
     assert "name" in str(exception.value)
@@ -67,7 +67,7 @@ def test_nomenclature_model_full_name_null():
         group = group_nomenclature_model("Заказ")
         u1 = unit_of_measurement_model("грамм",1)
         u2 = unit_of_measurement_model("кг",1000, u1)
-        _ = nomenclature_model("Блюдо 1",None, group,u2,"блюдо")
+        _ = nomenclature_model("Блюдо 1",None, group,u2,"dish")
 
     assert "Wrong argument" in str(exception.value)
     assert "full name" in str(exception.value)
@@ -76,7 +76,7 @@ def test_nomenclature_model_base_unit_null():
     """Check base unit on None value"""
     with pytest.raises(arguments_exception) as exception:
         group = group_nomenclature_model("Заказ")
-        _ = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,None,"блюдо")
+        _ = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,None,"dish")
 
     assert "Wrong argument" in str(exception.value)
     assert "base unit" in str(exception.value)
@@ -86,7 +86,7 @@ def test_nomenclature_model_group_null():
     with pytest.raises(arguments_exception) as exception:
         u1 = unit_of_measurement_model("грамм",1)
         u2 = unit_of_measurement_model("кг",1000, u1)
-        _ = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", None,u2,"блюдо")
+        _ = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", None,u2,"dish")
 
     assert "Wrong argument" in str(exception.value)
     assert "group" in str(exception.value)
@@ -108,7 +108,7 @@ def test_nomenclature_model_name_setter():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
     n.name = "Блюдо 2"
 
     assert n.name == "Блюдо 2"
@@ -118,7 +118,7 @@ def test_nomenclature_model_full_name_setter():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
     n.full_name = "Блюдо 1 от повара"
 
     assert n.full_name == "Блюдо 1 от повара"
@@ -129,7 +129,7 @@ def test_nomenclature_model_base_unit_setter():
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
     u3 = unit_of_measurement_model("мл",1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
     n.base_unit = u3
 
     assert n.base_unit == u3
@@ -139,8 +139,8 @@ def test_nomenclature_model_group_setter():
     group1 = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group1,u2,"блюдо")
-    group2 = group_nomenclature_model("Блюдо")
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group1,u2,"dish")
+    group2 = group_nomenclature_model("dish")
     n.group_of_nomenclature = group2
 
     assert n.group_of_nomenclature == group2
@@ -150,10 +150,10 @@ def test_nomenclature_model_type_of_position_setter():
     group = group_nomenclature_model("Заказ")
     u1 = unit_of_measurement_model("грамм",1)
     u2 = unit_of_measurement_model("кг",1000, u1)
-    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"блюдо")
-    n.type_of_pos = "товар"
+    n = nomenclature_model("Блюдо 1","Блюдо 1 от шефа", group,u2,"dish")
+    n.type_of_pos = "product"
 
-    assert n.type_of_pos == "товар"
+    assert n.type_of_pos == "product"
 
 def test_nomenclature_model_name_with_line_limitation():
     """Check name if it has lenght longer than 50"""
@@ -161,7 +161,7 @@ def test_nomenclature_model_name_with_line_limitation():
         group = group_nomenclature_model("Заказ")
         u1 = unit_of_measurement_model("грамм",1)
         u2 = unit_of_measurement_model("кг",1000, u1)
-        _ = nomenclature_model("1"*51,"Блюдо 1 от шефа", group,u2,"блюдо")
+        _ = nomenclature_model("1"*51,"Блюдо 1 от шефа", group,u2,"dish")
 
     assert "Wrong argument" in str(exception.value)
     assert "name" in str(exception.value)
@@ -172,7 +172,7 @@ def test_nomenclature_model_full_name_with_line_limitation():
         group = group_nomenclature_model("Заказ")
         u1 = unit_of_measurement_model("грамм",1)
         u2 = unit_of_measurement_model("кг",1000, u1)
-        _ = nomenclature_model("Блюдо 1","1"*256, group,u2,"блюдо")
+        _ = nomenclature_model("Блюдо 1","1"*256, group,u2,"dish")
 
     assert "Wrong argument" in str(exception.value)
     assert "full name" in str(exception.value)
