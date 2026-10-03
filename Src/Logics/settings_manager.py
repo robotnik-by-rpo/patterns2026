@@ -4,6 +4,7 @@ from Src.Models.organization_model import organization_model
 from Src.Core.exception import operation_exception
 from Src.Models.settings_model import settings_model
 from Src.Core.validate import validate
+from Src.Core.exception import not_exist_exception
 
 class setting_manager(abstract_manager):
     """Class storing settings"""
@@ -37,15 +38,19 @@ class setting_manager(abstract_manager):
             raise operation_exception("load","Error uploading file and processing file")
     def convert(self):
         """Convert data from json file"""
-        self.__settings.accounter_name = self.data["accounter_name"]
-        self.__settings.boss_name = self.data["boss_name"]
-        self.__settings.company = organization_model(self.data["name_organization"],
-                                                     self.data["inn"],
-                                                     self.data["bic"],
-                                                     self.data["current_accounter"],
-                                                     self.data["form_of_ownership"])
-        self.__settings.is_first = self.data["is_first"]
-        return True
+        try:
+            self.__settings.accounter_name = self.data["accounter_name"]
+            self.__settings.boss_name = self.data["boss_name"]
+            self.__settings.company = organization_model(self.data["name_organization"],
+                                                        self.data["inn"],
+                                                        self.data["bic"],
+                                                        self.data["current_accounter"],
+                                                        self.data["form_of_ownership"])
+            self.__settings.is_first = self.data["is_first"]
+            return True
+        except KeyError as e:
+            raise not_exist_exception("convert", "Error getting data by key from json") from e
+        
 
     @property
     def settings(self) -> settings_model:

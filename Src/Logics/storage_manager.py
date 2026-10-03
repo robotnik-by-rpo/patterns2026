@@ -8,23 +8,17 @@ from Src.Core.abstract_manager import abstract_manager
 
 class storage_manager(abstract_manager):
     """Class storing units, nomenclatures, company, warehouses, groups"""  
-    __units: dict[str, dict[str, unit_of_measurement_model]]
-    __nomenclatures: dict[str,list[nomenclature_model]]
-    __company: organization_model
-    __warehouses: list[warehouse_model]
-    __groups: list[group_nomenclature_model]
-    __is_first : bool
+    __units: dict[str, dict[str, unit_of_measurement_model]] = {}
+    __nomenclatures: dict[str,list[nomenclature_model]] = {}
+    __company: organization_model = None
+    __warehouses: list[warehouse_model] = []
+    __groups: list[group_nomenclature_model] = []
+    __is_first : bool = True
 
     def __new__(cls):
         """Singletone"""
         if not hasattr(cls, '_storage_manager__instance'):
             cls.__instance = super().__new__(cls)
-            cls.__instance.__units = {}
-            cls.__instance.__nomenclatures = {}
-            cls.__instance.__company = None
-            cls.__instance.__warehouses = []
-            cls.__instance.__groups = []
-            cls.__instance.__is_first = True
             cls.__instance.__is_first = cls.__instance.convert()
         return cls.__instance
 

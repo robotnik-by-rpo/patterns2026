@@ -1,4 +1,5 @@
 class arguments_exception(Exception):
+    """class for args errors"""
     __stack_trace: str = ""
     __msg: str = ""
     __field: str = ""
@@ -12,5 +13,11 @@ class arguments_exception(Exception):
         return f"Error: Wrong argument {self.__field}\n{self.__msg}\n{self.__stack_trace}"
     
 class operation_exception(arguments_exception):
+    """class for operation errors"""
     def __str__(self):
         return f"Error: Wrong operation {self.__field}\n{self.__msg}\n{self.__stack_trace}"
+    
+class not_exist_exception(arguments_exception):
+    """class for not exist erros"""
+    def __str__(self):
+        return f"Error: It doesn't exist {self.__field}\n{self.__msg}\n{self.__stack_trace}"

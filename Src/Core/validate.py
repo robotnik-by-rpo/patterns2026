@@ -81,3 +81,14 @@ class validate():
         if num is None or num <= 0:
             raise error(value, msg)
         return num
+    
+    @staticmethod
+    def validated_type(obj: any,
+                       type_: any,
+                       value: str,
+                       msg: str,
+                       error: type[T])->any:
+        """Check type of object"""
+        if not isinstance(obj, type_):
+            error(value, msg)
+        return obj
