@@ -9,6 +9,23 @@ from Src.Core.exception import not_exist_exception
 class setting_manager(abstract_manager):
     """Class storing settings"""
     __default_file: str = "settings.json"
+    __KEYS_FROM_FILE: list[str] = ["accounter_name",
+                                   "name_organization",
+                                   "boss_name",
+                                   "inn",
+                                   "bic",
+                                   "current_accounter",
+                                   "form_of_ownership",
+                                   "is_first"]
+    
+    __default_inn: str = "1829111559"
+    __default_bic: str = "124125513"
+    __default_current_accounter: str = "18291112593229111559"
+    __default_form_of_ownership: str = "ООО"
+    __default_is_first: bool = True
+    __default_boss_name: str = "boss"
+    __default_accounter_name: str = "accounter"
+    __default_company_name: str = "Ромашка"
     __settings: settings_model = None
 
     def __init__(self):
@@ -36,21 +53,30 @@ class setting_manager(abstract_manager):
                 self.is_loaded = self.convert()
         except Exception as ex:
             raise operation_exception("load","Error uploading file and processing file")
+        
     def convert(self):
         """Convert data from json file"""
-        try:
-            self.__settings.accounter_name = self.data["accounter_name"]
-            self.__settings.boss_name = self.data["boss_name"]
-            self.__settings.company = organization_model(self.data["name_organization"],
-                                                        self.data["inn"],
-                                                        self.data["bic"],
-                                                        self.data["current_accounter"],
-                                                        self.data["form_of_ownership"])
-            self.__settings.is_first = self.data["is_first"]
-            return True
-        except KeyError as e:
-            raise not_exist_exception("convert", "Error getting data by key from json") from e
-        
+        missing = [key for key in self.__KEYS_FROM_FILE if key not in self.data]
+        if missing:
+            raise not_exist_exception(
+                "convert",
+                f"Error getting data by key from json, missing key {','.join(missing)}"
+            )
+        accounter_name = self.data["accounter_name"]
+        boss_name = self.data["boss_name"]
+        company = organization_model(
+            self.data["name_organization"],
+            self.data["inn"],
+            self.data["bic"],
+            self.data["current_accounter"],
+            self.data["form_of_ownership"],
+        )
+        is_first = self.data["is_first"]
+        self.__settings.accounter_name = accounter_name
+        self.__settings.boss_name = boss_name
+        self.__settings.company = company
+        self.__settings.is_first = is_first
+        return True
 
     @property
     def settings(self) -> settings_model:
