@@ -1,0 +1,32 @@
+{
+    "name_organization": "Ромашка",
+    "boss_name": "boss",
+    "accounter_name": "accounter",
+    "inn": "1829111559",
+    "bic": "124125513",
+    "current_accounter": "18291112593229111559",
+    "form_of_ownership": "ООО",
+    "address": "",
+    "url_db": "",
+    "name_db": "",
+    "login_db": "",
+    "password_db": "",
+    "opening_hours": "",
+    "url_service_1": "",
+    "url_service_2": "",
+    "url_service_3": "",
+    "url_service_4": "",
+    "restaurants": [
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""},
+        {"name": "", "address": "", "opening_hours": "", "manager": ""}
+    ],
+    "is_first": true
+}

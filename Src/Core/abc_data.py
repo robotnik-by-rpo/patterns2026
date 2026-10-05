@@ -2,7 +2,7 @@ from abc import ABC
 import uuid
 from Src.Core.exception import arguments_exception
 class unit(ABC):
-
+    """abstract class for other classes. Class has id and name"""
     def __init__(self):
         """init attribute"""
         self.__id = uuid.uuid4().hex
