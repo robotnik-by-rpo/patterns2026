@@ -1,4 +1,5 @@
 from Src.Core.abc_data import unit
+from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
 
 class unit_of_measurement_model(unit):
@@ -31,9 +32,10 @@ class unit_of_measurement_model(unit):
     @coef.setter
     def coef(self, value: int)->None:
         """Setting coefficient"""
-        if value is None or value <= 0:
-            raise arguments_exception("coefficient", "Coefficient must be bigger 0")
-        self.__coef = value
+        self.__coef = validate.validated_null_and_zero_value(value,
+                                                             "coefficient", 
+                                                             "Coefficient must be bigger 0",
+                                                             arguments_exception)
 
     @property
     def common_coef(self) -> int:
