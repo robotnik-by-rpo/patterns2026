@@ -3,16 +3,21 @@ from Src.Models.nomenclature_model import nomenclature_model
 from Src.Models.organization_model import organization_model
 from Src.Models.unit_of_measurement_model import unit_of_measurement_model
 from Src.Models.warehouse_model import warehouse_model
-from Src.Core.building import building
 from Src.Core.abstract_manager import abstract_manager
+from Src.Core.validate import validate
+from Src.Core.exception import arguments_exception
+from Src.Factories.settings_storage_factory import base_data_setting_storage
+from Src.Factories.settings_storage_factory import settings_storage_factory
 
 class storage_manager(abstract_manager):
     """Class storing units, nomenclatures, company, warehouses, groups"""  
     __units: dict[str, dict[str, unit_of_measurement_model]] = {}
-    __nomenclatures: dict[str,list[nomenclature_model]] = {}
+
+    # dict{name_group_nomenclature, dict[name_of_nomenclature, nomenclature]}
+    __nomenclatures: dict[str,dict[str,nomenclature_model]] = {}
     __company: organization_model = None
-    __warehouses: list[warehouse_model] = []
-    __groups: list[group_nomenclature_model] = []
+    __warehouses: dict[str, list[warehouse_model]] = {}
+    __groups: dict[str, group_nomenclature_model] = {}
     __is_first : bool = True
 
     def __new__(cls):
@@ -25,115 +30,16 @@ class storage_manager(abstract_manager):
     def convert(self) -> bool:
         """Check, if data create at first so they will creat base data"""
         if self.__is_first: 
-            self.__create_data()
+            self.__create_data(settings_storage_factory.create_all())
         return False
     
-    def __create_data(self) -> None:
+    def __create_data(self, data_settings: base_data_setting_storage) -> None:
         """Creating a base data"""
-        self.__units = self.__create_unit_of_measure()
-        self.__groups = self.__create_groups()
-        self.__company = self.__create_company()
-        self.__nomenclatures = self.__create_nomenclature()
-        self.__warehouses = self.__create_warehouses()
-
-    def __create_unit_of_measure(self) -> dict[str, dict[str, unit_of_measurement_model]]:
-        """Uniting base of measurements for storage"""
-        # weight
-        g = unit_of_measurement_model("gram",1)
-        kg = unit_of_measurement_model("kilogram",1000,g)
-        t = unit_of_measurement_model("ton", 1000, kg)
-
-        # volume
-        ml = unit_of_measurement_model("milliliter",1)
-        l = unit_of_measurement_model("liter",1000, ml)
-        m3 = unit_of_measurement_model("cubic meter",1000,l)
-
-        # square
-        ml2 = unit_of_measurement_model("square millimete",1)
-        sm2 = unit_of_measurement_model("square centimeter",100,ml2)
-        m2 = unit_of_measurement_model("square meter",10000,sm2)
-
-        return {"weight":{'gram':g,'kilogram':kg,'ton':t},
-                "volume":{'milliliter':ml,'liter':l,'cubic meter':m3},
-                "square":{'square millimete':ml2, 'square centimeter': sm2, 'square meter':m2}}
-
-    def __create_groups(self) -> list[group_nomenclature_model]:
-        """Uniting base groups of nomenclatures"""
-        groups = []
-        name_groups = ["order", 
-                       "ingredients", 
-                       "blanks",
-                       "semimanufactures",
-                       "finished products",
-                       "consumables"]
-
-        for n in name_groups:
-            groups.append(group_nomenclature_model(n))
-
-        return groups
-
-
-    def __create_nomenclature(self) -> dict[str,list[nomenclature_model]]:
-        """Uniting base nomenclature"""
-        nomenclatures = []
-        
-        names_liquid = ["water","olive oil"]
-        full_names_liquid = ["water Aqua Holding","olive oil Borges"]
-        type_liquid = ["crude","crude"]
-
-        for n, f, t in zip(names_liquid, full_names_liquid, type_liquid):
-            nom = nomenclature_model(n,
-                                     f,
-                                     self.__groups[1], 
-                                     self.__units["volume"]["milliliter"],
-                                     t)
-            nomenclatures.append(nom)
-        
-        names_solid = ["flour","sugar","yeast"]
-        full_names_solid = ["flour MAKFA","sugar Tchaikovsky", "yeast Saf-Levure"]
-        type_solid = ["crude","crude","crude"]
-        
-        for n, f, t in zip(names_solid, full_names_solid, type_solid):
-            nom = nomenclature_model(n,
-                                     f,
-                                     self.__groups[1], 
-                                     self.__units["weight"]["kilogram"],
-                                     t)
-            nomenclatures.append(nom)
-
-        return {"ingredients":nomenclatures}
-
-
-    def __create_warehouses(self) -> list[warehouse_model]:
-        """Uniting base warehouses"""
-        address = ["Moscow, Pushkina St. 35",
-                   "Saint Petersburg, Repina St. 75",
-                   "Saint Petersburg, Sofia St. 92",
-                   "Moscow, Volkhonka St. 24",
-                   "Voronezh, 25th October St. 45"]
-        names = ["A01",
-                 "A02",
-                 "B01",
-                 "A03",
-                 "B02"]
-        square = [183,1891,889,712,142]
-        warehouses = []
-
-        for n,a,s in zip(names, address,square):
-            desc = warehouse_model(n,
-                                   self.__company,
-                                   building("warehouse",s,self.__units["square"]["square meter"],a))
-            warehouses.append(desc)
-
-        return warehouses
-
-    def __create_company(self) -> organization_model:
-        """Uniting base company"""
-        return organization_model("Ромашка",
-                                  "1350791749",
-                                  "782189947",
-                                  "78328490185897461647",
-                                  "ООО")
+        self.__units = data_settings["units"]
+        self.__groups = data_settings["groups"]
+        self.__company = data_settings["company"]
+        self.__nomenclatures = data_settings["nomenclatures"]
+        self.__warehouses = data_settings["warehouses"]
     
     @property
     def groups_nomenclature(self) -> list[group_nomenclature_model]:
@@ -144,7 +50,10 @@ class storage_manager(abstract_manager):
     def groups_nomenclature(self, 
                             new_groups_nomenclatures: list[group_nomenclature_model]) -> None:
         """It's setter for groups of nomenclature"""
-        self.__groups = new_groups_nomenclatures
+        self.__groups = validate.validated_null_empty_obj(new_groups_nomenclatures,
+                                                          "new groups nomenclatures",
+                                                          "new groups nomenclatures must be not None and not empty list",
+                                                          arguments_exception)
 
     @property
     def nomenclatures(self) -> dict[str,list[nomenclature_model]]:
@@ -154,7 +63,10 @@ class storage_manager(abstract_manager):
     @nomenclatures.setter
     def nomenclatures(self, new_nomenclatures: dict[str,list[nomenclature_model]])-> None:
         """It's setter for nomenclature"""
-        self.__nomenclatures = new_nomenclatures
+        self.__nomenclatures = validate.validated_null_empty_obj(new_nomenclatures,
+                                                                 "new nomenclatures",
+                                                                 "new nomeclature must be not None and not empty list",
+                                                                 arguments_exception)
     
     @property
     def warehouses(self) -> list[warehouse_model]:
@@ -164,7 +76,10 @@ class storage_manager(abstract_manager):
     @warehouses.setter
     def warehouses(self, new_warehouses) -> None:
         """It's setter for warehouses"""
-        self.__warehouses = new_warehouses
+        self.__warehouses = validate.validated_null_empty_obj(new_warehouses,
+                                                              "new warehouses",
+                                                              "new warehouses must be not None and not empty list",
+                                                              arguments_exception)
 
     @property
     def company(self) -> organization_model:
@@ -174,7 +89,10 @@ class storage_manager(abstract_manager):
     @company.setter
     def company(self, new_company: organization_model) -> None:
         """It's setter for company"""
-        self.__company = new_company
+        self.__company = validate.validated_null_value(new_company,
+                                                       "new company",
+                                                       "new company must be not None",
+                                                       arguments_exception)
 
     @property
     def is_first(self) -> bool:
@@ -184,12 +102,17 @@ class storage_manager(abstract_manager):
     @is_first.setter
     def is_first(self, new_flag: bool) -> None:
         """It's setter for flag"""
-        self.__is_first = new_flag
+        self.__is_first = validate.validated_null_value(new_flag,
+                                                        "new flag",
+                                                        "new flag must be bool, not None value",
+                                                        arguments_exception)
 
     @property
-    def units_of_measurement(self)->dict[str, dict[str, unit_of_measurement_model]]:
+    def units_of_measurement(self) -> dict[str, dict[str, unit_of_measurement_model]]:
+        """It's getter for unit of measurement"""
         return self.__units
     
     @units_of_measurement.setter
     def units_of_measurement(self, new_units):
-        self.__units = new_units
+        """It's setter for unit of measurement"""
+        self.__units = validate.validated_null_value(new_units)

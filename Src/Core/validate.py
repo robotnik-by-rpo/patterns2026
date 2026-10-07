@@ -17,11 +17,11 @@ class validate():
         return obj
 
     @staticmethod
-    def validated_null_empty_str(obj: str,
+    def validated_null_empty_obj(obj: any,
                                  value: str,
                                  msg: str,
                                  error: type[T]) -> str:
-        """Check line for None value and empty line"""
+        """Check object for None value and empty value"""
         if obj is None or not obj:
             raise error(value, msg)
         return obj 

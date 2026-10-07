@@ -93,3 +93,11 @@ class organization_model(unit):
                                                                   "form of ownership",
                                                                   "form of ownership must be exist",
                                                                   arguments_exception)
+         
+    @classmethod
+    def create_organization(cls) -> "organization_model":
+        return cls("Ромашка",
+                    "1350791749",
+                    "782189947",
+                    "78328490185897461647",
+                    "ООО")

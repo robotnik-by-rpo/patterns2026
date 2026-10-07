@@ -99,3 +99,114 @@ class nomenclature_model(unit):
                                                             "type of position",
                                                             "undefine position of type",
                                                             arguments_exception)
+        
+    @classmethod
+    def __template_create_nomenclature(cls,
+                                       names: list[str],
+                                       full_names: list[str],
+                                       type_: str,
+                                       group: group_nomenclature_model,
+                                       unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        """"""
+        nomenclatures = {}
+        for n, f in zip(names, full_names):
+            nom = cls(n,
+                    f,
+                    group, 
+                    unit_measurement,
+                    type_)
+            nomenclatures[type_] = nom 
+        return nomenclatures
+
+    @classmethod
+    def create_crude_ingredients(cls, 
+                                  group: group_nomenclature_model, 
+                                  unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        """Factory method for creating crude ingredients"""
+        
+        names = ["flour","sugar","yeast","water","olive oil"]
+        full_names = ["flour MAKFA","sugar Tchaikovsky", "yeast Saf-Levure"]
+        type_ = "crude"
+        
+
+        return cls.__template_create_nomenclature(names, 
+                                                  full_names, 
+                                                  type_,
+                                                  group,
+                                                  unit_measurement)
+    
+    @classmethod
+    def create_crude_blanks(cls,
+                                    group: group_nomenclature_model, 
+                                    unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        """Factory method for creating crude blanks"""
+
+        names = ["potato cubes","potato slices"]
+        full_names = ["potato Gala","potato Red Scarlet"]
+        type_ = "crude"
+
+        return cls.__template_create_nomenclature(names,
+                                                  full_names,
+                                                  type_,
+                                                  group,
+                                                  unit_measurement)
+    
+    @classmethod
+    def create_prepark_prepark(cls,
+                       group: group_nomenclature_model,
+                       unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        """Factory method for creating prepark prepark"""
+        names = ["dumpligs","nuggets"]
+        full_names = ["dumpligs We sculpt and cook","nuggets The Golden Cockerel"]
+        type_ = "prepark"
+
+        return cls.__template_create_nomenclature(names,
+                                                  full_names,
+                                                  type_,
+                                                  group,
+                                                  unit_measurement)
+    
+    @classmethod
+    def create_dish_finished_products(cls,
+                                    group: group_nomenclature_model,
+                                    unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        """Factory method for creating dish finished products"""
+        names = ["baguette","homemade bun"]
+        full_names = ["baguette in French","homemade bun in Russian"]
+        type_ = "dish"
+
+        return cls.__template_create_nomenclature(names,
+                                                  full_names,
+                                                  type_,
+                                                  group,
+                                                  unit_measurement)
+    
+    @classmethod
+    def create_product_consumables(cls,
+                                   group: group_nomenclature_model,
+                                   unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        """Factory method for creating product nomenclature"""
+
+        names = ["baguette","homemade bun"]
+        full_names = ["baguette in French","homemade bun in Russian"]
+        type_ = "dish"
+
+        return cls.__template_create_nomenclature(names,
+                                                  full_names,
+                                                  type_,
+                                                  group,
+                                                  unit_measurement)
+    
+    @classmethod
+    def create_product_consumables(cls,
+                                   group: group_nomenclature_model,
+                                   unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        names = ["package","box"]
+        full_names = ["package Europlast","box L-PAK"]
+        type_ = "dish"
+
+        return cls.__template_create_nomenclature(names,
+                                                  full_names,
+                                                  type_,
+                                                  group,
+                                                  unit_measurement)

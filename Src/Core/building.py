@@ -19,7 +19,7 @@ class building(unit):
                                                          "unit of measurement of square", 
                                                          "square must have unit of measurement",
                                                          arguments_exception)
-        self.__address = validate.validated_null_empty_str(address,
+        self.__address = validate.validated_null_empty_obj(address,
                                                            "address",
                                                            "address mustn't be empty",
                                                            arguments_exception)
@@ -57,7 +57,7 @@ class building(unit):
     @address.setter
     def address(self, new_address:str)->None:
         """Setting adddress of building"""
-        self.__address = validate.validated_null_empty_str(new_address,
+        self.__address = validate.validated_null_empty_obj(new_address,
                                                            "address",
                                                            "address mustn't be empty",
                                                            arguments_exception)
