@@ -6,17 +6,16 @@ class group_nomenclature_model(unit):
         self.name = name
 
     @classmethod
-    def create_groups(cls) -> list["group_nomenclature_model"]:
+    def create_groups(cls) -> dict[str,"group_nomenclature_model"]:
         "Factory method for creating groups of nomenclature"
-        groups = []
+        groups = {}
         name_groups = ["order", 
                        "ingredients", 
                        "blanks",
-                       "prepark",
+                       "prepack",
                        "finished products",
                        "consumables"]
 
         for n in name_groups:
-            groups.append(group_nomenclature_model(n))
-
+            groups[n]=group_nomenclature_model(n)
         return groups

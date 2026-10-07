@@ -152,13 +152,13 @@ class nomenclature_model(unit):
                                                   unit_measurement)
     
     @classmethod
-    def create_prepark_prepark(cls,
+    def create_prepack_prepack(cls,
                        group: group_nomenclature_model,
                        unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
-        """Factory method for creating prepark prepark"""
+        """Factory method for creating prepack prepack"""
         names = ["dumpligs","nuggets"]
         full_names = ["dumpligs We sculpt and cook","nuggets The Golden Cockerel"]
-        type_ = "prepark"
+        type_ = "prepack"
 
         return cls.__template_create_nomenclature(names,
                                                   full_names,

@@ -52,7 +52,7 @@ class settings_storage_factory:
         kg = units["weight"]["kilogram"]
         return {"ingredients": nomenclature_model.create_crude_ingredients(groups["ingredients"],kg),
                 "blanks": nomenclature_model.create_crude_blanks(groups["blanks"],kg),
-                "prepark": nomenclature_model.create_prepark_prepark(groups["prepark"],kg),
+                "prepack": nomenclature_model.create_prepack_prepack(groups["prepack"],kg),
                 "order": {},
                 "finished products": nomenclature_model.create_dish_finished_products(groups["finished products"],kg),
                 "consumables": nomenclature_model.create_product_consumables(groups["consumables"],kg)}

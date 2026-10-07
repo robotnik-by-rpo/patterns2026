@@ -82,7 +82,7 @@ class unit_of_measurement_model(unit):
     @classmethod
     def create_sm2(cls) -> "unit_of_measurement_model":
         "Factory method for creating square centimeter"
-        return cls("square centimeter",100,cls.create_ml2())
+        return cls("square centimeter",100,cls.create_mm2())
     
     @classmethod
     def create_m2(cls) -> "unit_of_measurement_model":
