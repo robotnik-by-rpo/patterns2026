@@ -39,7 +39,7 @@ classDiagram
         <<static>>
         +validated_filename_settings()
         +validated_null_value()
-        +validated_null_empty_str()
+        +validated_null_empty_obj()
     }
 
     class arguments_exception {

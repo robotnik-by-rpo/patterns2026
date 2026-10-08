@@ -11,18 +11,9 @@ class building(unit):
     def __init__(self, name: str, square: float, base_unit: unit_of_measurement_model, address: str):
         super().__init__()
         self.name = name
-        self.__square = validate.validated_null_and_zero_value(square,
-                                                               "square", 
-                                                               "square must be bigger than 0",
-                                                               arguments_exception)
-        self.__base_unit = validate.validated_null_value(base_unit,
-                                                         "unit of measurement of square", 
-                                                         "square must have unit of measurement",
-                                                         arguments_exception)
-        self.__address = validate.validated_null_empty_obj(address,
-                                                           "address",
-                                                           "address mustn't be empty",
-                                                           arguments_exception)
+        self.square = square                                   
+        self.base_unit = base_unit
+        self.address = address
         
     @property
     def square(self) ->float:

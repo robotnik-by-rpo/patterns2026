@@ -17,15 +17,9 @@ class warehouse_model(unit):
         
         super().__init__()
         self.name = name
-        self.__warehouse_owner = validate.validated_null_value(warehouse_owner,
-                                                               "owner",
-                                                               "owner must be not None",
-                                                               arguments_exception)
+        self.warehouse_owner = warehouse_owner
 
-        self.__description_of_building = validate.validated_null_value(description,
-                                                                       "description",
-                                                                       "description must be not None",
-                                                                       arguments_exception)
+        self.description_of_building = description
     
     @property 
     def warehouse_owner(self) -> organization_model:

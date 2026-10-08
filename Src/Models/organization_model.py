@@ -24,23 +24,10 @@ class organization_model(unit):
                  form_of_ownership: str):
         super().__init__()
         self.name = name
-        self.__inn = validate.validated_certain_size(inn, 
-                                                     self._SIZE_INN, 
-                                                     "INN",
-                                                     arguments_exception)
-        self.__bic = validate.validated_certain_size(bic, 
-                                                     self._SIZE_BIC, 
-                                                     "BIC",
-                                                     arguments_exception)
-        self.__current_account = validate.validated_certain_size(current_account, 
-                                                                 self._SIZE_CURRENT_ACCOUNT, 
-                                                                 "current account",
-                                                                 arguments_exception)
-        self.__form_of_ownership = validate.validated_value_exist(form_of_ownership,
-                                                                  self._EXIST_FORM_OF_OWNERSHIP,
-                                                                  "form of ownership",
-                                                                  "form of ownership must be exist",
-                                                                  arguments_exception)
+        self.inn = inn
+        self.bic = bic
+        self.current_account = current_account                                                     
+        self.form_of_ownership = form_of_ownership
         
     @property
     def inn(self)->str:

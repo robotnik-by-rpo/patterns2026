@@ -90,5 +90,27 @@ class validate():
                        error: type[T])->any:
         """Check type of object"""
         if not isinstance(obj, type_):
-            error(value, msg)
+            raise error(value, msg)
         return obj
+    
+    @staticmethod
+    def validated_positive_value(num: any,
+                                 value: str,
+                                 msg: str,
+                                 error: type[T])->any:
+        """Check num on positive value"""
+        if num < 0:
+            raise error(value, msg)
+        return num
+
+    @staticmethod
+    def validated_rangу_values(p: int | float,
+                               s: int | float,
+                               e: int | float,
+                               value: str,
+                               msg: str,
+                               error: type[T])->any:
+        """Check num between two points"""
+        if p < s or p > e:
+            raise error(value, msg)
+        return p

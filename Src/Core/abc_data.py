@@ -1,11 +1,12 @@
 from abc import ABC
 import uuid
 from Src.Core.exception import arguments_exception
+from Src.Core.validate import validate
 class unit(ABC):
     """abstract class for other classes. Class has id and name"""
     def __init__(self):
         """init attribute"""
-        self.__id = uuid.uuid4().hex
+        self.id = uuid.uuid4().hex
         self.__name = ""
 
     @property
@@ -15,10 +16,11 @@ class unit(ABC):
     
     @id.setter
     def id(self,new_id: str) -> None:
-        if new_id is not None and new_id:
-            self.__id = new_id
-        else:
-            raise arguments_exception(new_id,"Empty id")
+        """Getter for id"""
+        self.__id = validate.validated_null_empty_obj(new_id,
+                                                      "Empty id",
+                                                      "New id must be not None or empty value",
+                                                      arguments_exception)
 
     @property
     def name(self)->str:
@@ -28,7 +30,7 @@ class unit(ABC):
     @name.setter
     def name(self, new_name: str)->None:
         """Method for setting new name"""
-        if new_name is not None and new_name:
-            self.__name = new_name
-        else:
-            raise arguments_exception(new_name,"Empty name")
+        self.__name = validate.validated_null_empty_obj(new_name,
+                                                        "Empty name",
+                                                        "New name be not None or empty value",
+                                                        arguments_exception)

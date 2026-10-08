@@ -29,24 +29,11 @@ class nomenclature_model(unit):
                                             "name",
                                             arguments_exception)
        
-        self.__full_name = validate.validated_name(full_name,
-                                                   self._FULL_MAX_SIZE_NAME,
-                                                    "full name",
-                                                    arguments_exception)
-        self.__group_of_nomenclature = validate.validated_null_value(group, 
-                                                                     "group", 
-                                                                     "group must be not None",
-                                                                     arguments_exception)
-        self.__base_unit = validate.validated_null_value(base_unit,
-                                                         "base unit of measurement",
-                                                         "base unit of measurement must be not None",
-                                                         arguments_exception)
-
-        self.__type_of_pos = validate.validated_value_exist(type_of_pos,
-                                                            self.__existing_type_of_pos,
-                                                            "type of position",
-                                                            "undefine position of type",
-                                                            arguments_exception)
+        self.full_name = full_name
+        self.group_of_nomenclature = group
+        self.base_unit = base_unit
+        self.type_of_pos = type_of_pos
+                                                        
     @property
     def full_name(self)->str:
         """Getting full name"""
@@ -107,7 +94,7 @@ class nomenclature_model(unit):
                                        type_: str,
                                        group: group_nomenclature_model,
                                        unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
-        """"""
+        """tempalte for creating objects"""
         nomenclatures = {}
         for n, f in zip(names, full_names):
             nom = cls(n,
@@ -124,8 +111,8 @@ class nomenclature_model(unit):
                                   unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
         """Factory method for creating crude ingredients"""
         
-        names = ["flour","sugar","yeast","water","olive oil"]
-        full_names = ["flour MAKFA","sugar Tchaikovsky", "yeast Saf-Levure"]
+        names = ["flour","salt","yeast","water","olive oil"]
+        full_names = ["flour MAKFA","salt Tchaikovsky", "water Baical", "yeast Saf-Levure"]
         type_ = "crude"
         
 
@@ -185,22 +172,7 @@ class nomenclature_model(unit):
     def create_product_consumables(cls,
                                    group: group_nomenclature_model,
                                    unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
-        """Factory method for creating product nomenclature"""
-
-        names = ["baguette","homemade bun"]
-        full_names = ["baguette in French","homemade bun in Russian"]
-        type_ = "dish"
-
-        return cls.__template_create_nomenclature(names,
-                                                  full_names,
-                                                  type_,
-                                                  group,
-                                                  unit_measurement)
-    
-    @classmethod
-    def create_product_consumables(cls,
-                                   group: group_nomenclature_model,
-                                   unit_measurement: unit_of_measurement_model) -> dict[str,"nomenclature_model"]:
+        """Factory method for creating product consumables"""
         names = ["package","box"]
         full_names = ["package Europlast","box L-PAK"]
         type_ = "dish"
