@@ -51,12 +51,23 @@ class recipe_model(unit):
 
     @property
     def brutto(self) -> float:
-        """Brutto recipe = sum of brutto all lines"""
+        """Brutto recipe = sum of brutto all lines
+        
+        Рекурсия: внутри line.brutto вызывается component.brutto.
+        Если компонент — это technical_map_model (или другой продукт
+        с собственным рецептом), то его brutto = recipe.brutto,
+        и суммирование уходит на уровень ниже. Так блюда внутри
+        блюд (полуфабрикаты, вложенные техкарты) учитываются
+        автоматически на любую глубину вложенности.
+        """
         return sum(line.brutto for line in self.lines)
 
     @property
     def netto(self) -> float:
-        """Netto recipe = sum of netto all lines"""
+        """Netto recipe = sum of netto all lines
+        
+        Рекурсия аналогична методу brutto: см. пояснение выше.
+        """
         return sum(line.netto for line in self.lines)
 
     @classmethod

@@ -25,45 +25,95 @@ def _make_lunch(baguette, share: float) -> technical_map_model:
 
 def test_brutto_technical_map_model():
     """Check brutto of technical map equals sum of recipe lines"""
+    # preparation
     tech = technical_map_model.create_technical_map()
     brutto = tech.brutto
     expected = sum(line.brutto for line in tech.recipe.lines)
 
+    #action
+
+    # verification
     assert brutto == expected
 
 
 def test_netto_technical_map_model():
     """Check netto of technical map equals sum of recipe lines"""
+    # preparation
     tech = technical_map_model.create_technical_map()
     netto = tech.netto
     expected = sum(line.netto for line in tech.recipe.lines)
 
+    #action
+
+    # verification
     assert netto == expected
 
 
 def test_waste_default_technical_map_model():
     """Check waste stays default (0.0)"""
+    # preparation
     tech = technical_map_model.create_technical_map()
     waste = tech.waste
 
+    #action
+
+    # verification
     assert waste == 0.0
 
 
 def test_recursive_brutto_technical_map_model():
     """Check recursive brutto: dish inside dish"""
+    # preparation
     baguette = technical_map_model.create_technical_map()
     lunch = _make_lunch(baguette, 0.5)
     brutto = lunch.brutto
     expected = baguette.brutto * 0.5
 
+    #action
+
+    # verification
     assert brutto == expected
 
 
 def test_recursive_netto_technical_map_model():
     """Check recursive netto: dish inside dish"""
+    # preparation
     baguette = technical_map_model.create_technical_map()
     lunch = _make_lunch(baguette, 0.25)
     netto = lunch.netto
     expected = baguette.netto * 0.25
 
+    #action
+
+    # verification
     assert netto == expected
+
+
+def test_recursive_technical_map_in_technical_map():
+    """Check recursion depth 2: tech map inside tech map"""
+    # preparation
+    baguette = technical_map_model.create_technical_map()
+    lunch = _make_lunch(baguette, 0.5)
+    dinner = _make_lunch(lunch, 0.5)
+
+    # action
+    brutto = dinner.brutto
+    netto = dinner.netto
+
+    # verification
+    assert brutto == baguette.brutto * 0.25
+    assert netto == baguette.netto * 0.25
+
+def test_recursive_netto_recipe_model():
+    # preparation
+    baguette = technical_map_model.create_technical_map()
+    lunch_recipe = recipe_model(
+        "Business lunch",
+        [recipe_line_model(baguette, 1.0, 0.5)]
+    )
+
+    # action
+    netto = lunch_recipe.netto
+
+    # verification
+    assert netto == baguette.netto * 0.5

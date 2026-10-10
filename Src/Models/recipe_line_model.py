@@ -1,11 +1,12 @@
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
+from Src.Core.product import product
 
 
 class recipe_line_model:
     """Line of recipe - component + quantity + share"""
 
-    def __init__(self, component, quantity: float, share: float = 1.0):
+    def __init__(self, component: product, quantity: float, share: float = 1.0):
         self.component = component
         self.quantity = quantity
         self.share = share
@@ -59,10 +60,19 @@ class recipe_line_model:
 
     @property
     def brutto(self) -> float:
-        """Брутто строки = брутто компонента * доля"""
+        """Brutto line = brutto compoment multiply share
+        
+        Точка рекурсии: если `component` — это technical_map_model
+        (или другой продукт с собственным рецептом), то обращение
+        к component.brutto уходит в его рецепт, а тот суммирует
+        свои строки — и так далее по дереву.
+        """
         return self.component.brutto * self.share
 
     @property
     def netto(self) -> float:
-        """Нетто строки = нетто компонента * доля"""
+        """Netto line = netto compoment multiply share
+        
+        Рекурсия аналогична методу brutto: см. пояснение выше.
+        """
         return self.component.netto * self.share

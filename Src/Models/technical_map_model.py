@@ -42,14 +42,23 @@ class technical_map_model(product):
 
     @property
     def brutto(self) -> float:
-        """Brutto = sum of brutto of recipe"""
+        """Brutto = sum of brutto of recipe
+        
+        Рекурсивный случай: техкарта может быть компонентом
+        строки другого рецепта. Тогда её brutto вызывается
+        из recipe_line_model.brutto, и цепочка замыкается:
+        recipe -> line -> component (tech_map) -> recipe -> ... 
+        """
         if self.__recipe is None:
             return 0.0
         return self.__recipe.brutto
 
     @property
     def netto(self) -> float:
-        """Netto = sum of netto of recipe"""
+        """Netto = sum of netto of recipe
+        
+        Рекурсия аналогична brutto: см. пояснение выше.
+        """
         if self.__recipe is None:
             return 0.0
         return self.__recipe.netto
