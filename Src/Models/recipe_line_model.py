@@ -19,12 +19,18 @@ class recipe_line_model:
     @component.setter
     def component(self, new_component) -> None:
         """Setter for component"""
-        self.__component = validate.validated_null_value(
+        new_component = validate.validated_null_value(
             new_component,
             "component",
             "component must be not None",
             arguments_exception
         )
+        if not hasattr(new_component, "brutto") or not hasattr(new_component, "netto"):
+            raise arguments_exception(
+                "component",
+                "component must have 'brutto' and 'netto' attributes"
+            )
+        self.__component = new_component
 
     @property
     def quantity(self) -> float:
@@ -67,7 +73,11 @@ class recipe_line_model:
         к component.brutto уходит в его рецепт, а тот суммирует
         свои строки — и так далее по дереву.
         """
-        return self.component.brutto * self.share
+        if self.__component is None:
+            raise arguments_exception(
+                "component", "component is not set, cannot calculate brutto"
+            )
+        return self.__component.brutto * self.share
 
     @property
     def netto(self) -> float:
@@ -75,4 +85,8 @@ class recipe_line_model:
         
         Рекурсия аналогична методу brutto: см. пояснение выше.
         """
+        if self.__component is None:
+            raise arguments_exception(
+                "component", "component is not set, cannot calculate brutto"
+            )
         return self.component.netto * self.share

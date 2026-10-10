@@ -103,17 +103,3 @@ def test_recursive_technical_map_in_technical_map():
     # verification
     assert brutto == baguette.brutto * 0.25
     assert netto == baguette.netto * 0.25
-
-def test_recursive_netto_recipe_model():
-    # preparation
-    baguette = technical_map_model.create_technical_map()
-    lunch_recipe = recipe_model(
-        "Business lunch",
-        [recipe_line_model(baguette, 1.0, 0.5)]
-    )
-
-    # action
-    netto = lunch_recipe.netto
-
-    # verification
-    assert netto == baguette.netto * 0.5

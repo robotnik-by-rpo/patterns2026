@@ -240,3 +240,19 @@ def test_set_share_negative_recipe_line_model():
     # verification
     assert "Wrong argument" in str(exception.value)
     assert "share" in str(exception.value)
+
+def test_set_invalid_component_recipe_line_model():
+    """Компонент без brutto/netto должен отсекаться сеттером."""
+    """Check component without brutto/netto must cut off setter"""
+    # preparation
+    component = _make_component()
+    line = recipe_line_model(component, 100.0)
+    bad = unit_of_measurement_model.create_g()
+
+    # action
+    with pytest.raises(arguments_exception) as exception:
+        line.component = bad
+
+    # verification
+    assert "Wrong argument" in str(exception.value)
+    assert "component" in str(exception.value)
