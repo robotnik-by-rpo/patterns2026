@@ -43,3 +43,48 @@ class unit_of_measurement_model(unit):
         if self.__base is None:
             return self.coef
         return self.coef * self.__base.common_coef
+    
+    @classmethod
+    def create_kg(cls) -> "unit_of_measurement_model":
+        """Factory method for creating kilogram"""
+        return cls("kilogram", 1000, cls.create_g())
+    
+    @classmethod
+    def create_g(cls) -> "unit_of_measurement_model":
+        """Factory method for creating gram"""
+        return cls("gram",1)
+    
+    @classmethod
+    def create_ton(cls) -> "unit_of_measurement_model":
+        "Factory method for creating ton"
+        return cls("ton",1000,cls.create_kg())
+    
+    @classmethod
+    def create_ml(cls) -> "unit_of_measurement_model":
+        "Factory method for creating mililiter"
+        return cls("milliliter",1)
+    
+    @classmethod
+    def create_l(cls) -> "unit_of_measurement_model":
+        "Factory method for creating liter"
+        return cls("liter",1000,cls.create_ml())
+    
+    @classmethod
+    def create_m3(cls) -> "unit_of_measurement_model":
+        "Factory method for creating cuber meter"
+        return cls("cubic meter",1000,cls.create_l())
+    
+    @classmethod
+    def create_mm2(cls) -> "unit_of_measurement_model":
+        "Factory method for creating square milimeter"
+        return cls("square millimeter",1)
+    
+    @classmethod
+    def create_sm2(cls) -> "unit_of_measurement_model":
+        "Factory method for creating square centimeter"
+        return cls("square centimeter",100,cls.create_mm2())
+    
+    @classmethod
+    def create_m2(cls) -> "unit_of_measurement_model":
+        "Factory method for creating square meter"
+        return cls("square meter",10000,cls.create_sm2())

@@ -32,7 +32,7 @@ class settings_model(unit):
     @boss_name.setter
     def boss_name(self, new_name)->None:
         """Setter for boss name"""
-        self.__boss_name = validate.validated_null_empty_str(new_name,
+        self.__boss_name = validate.validated_null_empty_obj(new_name,
                                                         "boss name",
                                                         "boss name must be not empty line",
                                                         arguments_exception)
@@ -45,7 +45,7 @@ class settings_model(unit):
     @accounter_name.setter
     def accounter_name(self, new_name: str) -> None:
         """Setter for accounter name"""
-        self.__accounter_name = validate.validated_null_empty_str(new_name,
+        self.__accounter_name = validate.validated_null_empty_obj(new_name,
                                                         "accounter name",
                                                         "accounter name must be not empty line",
                                                         arguments_exception)

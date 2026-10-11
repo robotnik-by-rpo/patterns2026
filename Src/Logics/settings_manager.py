@@ -58,20 +58,17 @@ class setting_manager(abstract_manager):
         """Convert data from json file"""
         missing = [key for key in self.__KEYS_FROM_FILE if key not in self.data]
         if missing:
-            raise not_exist_exception(
-                "convert",
-                f"Error getting data by key from json, missing key {','.join(missing)}"
-            )
-        accounter_name = self.data["accounter_name"]
-        boss_name = self.data["boss_name"]
+            print(f"keys weren't got from json, missing keys: {','.join(missing)}")
+        accounter_name = self.data.get("accounter_name",self.__default_accounter_name)
+        boss_name = self.data.get("boss_name",self.__default_boss_name)
         company = organization_model(
-            self.data["name_organization"],
-            self.data["inn"],
-            self.data["bic"],
-            self.data["current_accounter"],
-            self.data["form_of_ownership"],
+            self.data.get("name_organization",self.__default_company_name),
+            self.data.get("inn",self.__default_inn),
+            self.data.get("bic",self.__default_bic),
+            self.data.get("current_accounter",self.__default_current_accounter),
+            self.data.get("form_of_ownership",self.__default_form_of_ownership),
         )
-        is_first = self.data["is_first"]
+        is_first = self.data.get("is_first",self.__default_is_first)
         self.__settings.accounter_name = accounter_name
         self.__settings.boss_name = boss_name
         self.__settings.company = company
