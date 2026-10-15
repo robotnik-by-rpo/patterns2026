@@ -4,6 +4,7 @@ from Src.Core.exception import arguments_exception
 
 """
     Модель для хранения результата отчета
+    Model for storing result of report
 """
 class report_result_dto(unit):
     __text: str = ""

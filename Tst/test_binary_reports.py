@@ -5,6 +5,7 @@ from Src.Logics.csv_report import csv_report
 from Src.Logics.md_report import md_report
 
 def test_csv_report_binary_and_content():
+    """Check decode csv report after encoding"""
     # preparation
     tech = technical_map_model.create_technical_map()
 
@@ -12,7 +13,7 @@ def test_csv_report_binary_and_content():
     result = csv_report().build(tech)
 
     # verification
-    assert result.binary, "CSV должен вернуть binary"
+    assert result.binary, "CSV must return binary"
     assert result.text == ""
 
     rows = list(csv.reader(StringIO(result.binary[0].decode("utf-8-sig"))))
@@ -22,6 +23,7 @@ def test_csv_report_binary_and_content():
 
 
 def test_md_report_binary_and_content():
+    """Check decode markdown report after encoding"""
     # preparation
     tech = technical_map_model.create_technical_map()
 
