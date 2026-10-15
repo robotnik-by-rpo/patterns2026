@@ -28,5 +28,6 @@
         {"name": "", "address": "", "opening_hours": "", "manager": ""},
         {"name": "", "address": "", "opening_hours": "", "manager": ""}
     ],
-    "is_first": true
+    "is_first": true,
+    "response_format": "TXT"
 }

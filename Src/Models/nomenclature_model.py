@@ -102,7 +102,7 @@ class nomenclature_model(unit):
                     group, 
                     unit_measurement,
                     type_)
-            nomenclatures[type_] = nom 
+            nomenclatures[n] = nom 
         return nomenclatures
 
     @classmethod

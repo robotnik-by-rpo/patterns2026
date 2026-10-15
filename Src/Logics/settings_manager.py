@@ -5,6 +5,7 @@ from Src.Core.exception import operation_exception
 from Src.Models.settings_model import settings_model
 from Src.Core.validate import validate
 from Src.Core.exception import not_exist_exception
+from Src.Core.exception import arguments_exception
 
 class setting_manager(abstract_manager):
     """Class storing settings"""
@@ -16,7 +17,8 @@ class setting_manager(abstract_manager):
                                    "bic",
                                    "current_accounter",
                                    "form_of_ownership",
-                                   "is_first"]
+                                   "is_first",
+                                   "response_format"]
     
     __default_inn: str = "1829111559"
     __default_bic: str = "124125513"
@@ -26,7 +28,10 @@ class setting_manager(abstract_manager):
     __default_boss_name: str = "boss"
     __default_accounter_name: str = "accounter"
     __default_company_name: str = "Ромашка"
+    __default_response_format: str = "TXT"
     __settings: settings_model = None
+    __response_format: str = ""
+
 
     def __init__(self):
         """Initing new settings"""
@@ -59,20 +64,23 @@ class setting_manager(abstract_manager):
         missing = [key for key in self.__KEYS_FROM_FILE if key not in self.data]
         if missing:
             print(f"keys weren't got from json, missing keys: {','.join(missing)}")
-        accounter_name = self.data.get("accounter_name",self.__default_accounter_name)
-        boss_name = self.data.get("boss_name",self.__default_boss_name)
+        accounter_name = self.data.get("accounter_name", self.__default_accounter_name)
+        boss_name = self.data.get("boss_name", self.__default_boss_name)
         company = organization_model(
-            self.data.get("name_organization",self.__default_company_name),
-            self.data.get("inn",self.__default_inn),
-            self.data.get("bic",self.__default_bic),
-            self.data.get("current_accounter",self.__default_current_accounter),
-            self.data.get("form_of_ownership",self.__default_form_of_ownership),
+            self.data.get("name_organization", self.__default_company_name),
+            self.data.get("inn", self.__default_inn),
+            self.data.get("bic", self.__default_bic),
+            self.data.get("current_accounter", self.__default_current_accounter),
+            self.data.get("form_of_ownership", self.__default_form_of_ownership),
         )
-        is_first = self.data.get("is_first",self.__default_is_first)
+        is_first = self.data.get("is_first", self.__default_is_first)
+        response = self.data.get("response_format", self.__default_response_format)
         self.__settings.accounter_name = accounter_name
         self.__settings.boss_name = boss_name
         self.__settings.company = company
         self.__settings.is_first = is_first
+        self.__settings.response_format = response
+        self.__response_format = response
         return True
 
     @property
@@ -83,4 +91,20 @@ class setting_manager(abstract_manager):
     @settings.setter
     def settings(self, new_settings) -> None:
         """Setter for settings"""
-        self.__settings = new_settings
+        self.__settings = validate.validated_null_value(new_settings,
+                                                        "new settings",
+                                                        "new settings must be not None",
+                                                        arguments_exception)
+
+    @property
+    def response_format(self)->str:
+        """Getter for response format"""
+        return self.__response_format
+
+    @response_format.setter
+    def response_format(self, new_format: str) -> None:
+        """Setter for response format"""
+        self.__response_format = validate.validated_null_empty_obj(new_format,
+                                                                   "new response format",
+                                                                   "new response must be not None or empty value",
+                                                                   arguments_exception)
