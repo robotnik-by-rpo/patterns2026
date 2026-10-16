@@ -12,8 +12,12 @@ Creating XML report by technical map
 """
 class xml_report(abstract_report):
     __map_model: unit
+    mime_type = "application/xml"
+    file_extension = "xml"
+    is_binary = False
 
     def build(self, source: unit):
+        """Creating data for response"""
         source = validate.validated_type(source, unit,
                                         "source", 
                                         "source must be unit",
@@ -24,7 +28,7 @@ class xml_report(abstract_report):
         data = '<?xml version="1.0" encoding="UTF-8"?>\n<report>\n'
         for row in rows:
             attrs = " ".join(
-                f'{header[i].lower()}="{escape(str(row[i]))}"'
+                f'{self._attr_name(header[i])}="{escape(str(row[i]))}"'
                 for i in range(len(header))
             )
             data += f"  <row {attrs}/>\n"
@@ -33,3 +37,6 @@ class xml_report(abstract_report):
         result = report_result_dto()
         result.text = data
         return result
+    
+    def _attr_name(self, header: str) -> str:
+        return header.strip().lower().replace(" ", "_")

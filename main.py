@@ -7,6 +7,7 @@ from Src.Core.exception import not_exist_exception
 from Src.Core.exception import arguments_exception
 from Src.Core.abc_data import unit
 from Src.Logics.settings_manager import setting_manager
+from Src.Logics.entity_factory import  entity_factory
 import uvicorn
 
 
@@ -19,73 +20,53 @@ store.convert()
 factory = report_factory()
 
 
-def _find_entity(entity_type: str, code: str) -> unit:
-    """Returning unit (technical map / nomenclature / unit of measurement)"""
-    t = entity_type.strip().lower()
+def _build_response(entity: unit, fmt: report_type_enum) -> Response:
+    """Method for creating response"""
+    report_impl = factory.create(fmt)
+    result = report_impl.build(entity)
 
-    if t in ("recipe", "technical_map"):
-        tm = technical_map_model.create_technical_map()
-        if code in ("", "*", "all", tm.id, tm.name):
-            return tm
-        raise not_exist_exception("code", f"recipe '{code}' not found")
-
-    if t == "nomenclature":
-        for _, items in store.nomenclatures.items():
-            if code in items:
-                return items[code]
-        raise not_exist_exception("code", f"nomenclature '{code}' not found")
-
-    if t in ("unit", "unit_of_measurement"):
-        for _, items in store.units_of_measurement.items():
-            if code in items:
-                return items[code]
-        raise not_exist_exception("code", f"unit '{code}' not found")
-
-    raise arguments_exception("type", f"unknown type: {entity_type}")
-
-
-def _build_response(report, source: unit, fmt: report_type_enum) -> Response:
-    result = report.build(source)
-
-    if fmt in (report_type_enum.CSV, report_type_enum.MD):
-        ext = "csv" if fmt is report_type_enum.CSV else "md"
-        mime = "text/csv; charset=utf-8" if fmt is report_type_enum.CSV \
-               else "text/markdown; charset=utf-8"
+    if report_impl.is_binary:
         return Response(
-            content=result.binary[0] if result.binary else result.text.encode("utf-8"),
-            media_type=mime,
-            headers={"Content-Disposition": f'attachment; filename="report.{ext}"'},
+            content=result.binary[0],
+            media_type=report_impl.mime_type,
+            headers={
+                "Content-Disposition":
+                    f'attachment; filename="report.{report_impl.file_extension}"'
+            }
         )
-
-    mime = {
-        report_type_enum.TXT:  "text/plain; charset=utf-8",
-        report_type_enum.XML:  "application/xml; charset=utf-8",
-        report_type_enum.HTML: "text/html; charset=utf-8",
-    }[fmt]
-    return Response(content=result.text, media_type=mime)
-
+    return Response(content=result.text, media_type=report_impl.mime_type)
 
 @app.get("/api/get_report")
-def get_report(format: str = "TXT", type: str = "recipe", code: str = ""):
+def get_report(format: str = "TXT", entity_type: str = "recipe", code: str = ""):
+    """Getting a report by endpoint /api/get_report"""
     try:
-        fmt = report_factory.parse_format(format)
-        source = _find_entity(type, code)
-        report = factory.create(fmt)
-        return _build_response(report, source, fmt)
+        fmt = report_type_enum.from_string(format)
+        entity = entity_factory().create(entity_type, code)
+        return _build_response(entity, fmt)
     except (arguments_exception, not_exist_exception) as ex:
         raise HTTPException(status_code=400, detail=str(ex))
 
 
 @app.get("/api/get_default_report")
-def get_default_report(type: str = "recipe", code: str = ""):
+def get_default_report(entity_type: str = "recipe", code: str = ""):
     """Format getting from settings.json"""
     try:
-        source = _find_entity(type, code)
-        report = factory.create_default()
-        fmt = report_factory.parse_format(factory.settings.response_format)
-        return _build_response(report, source, fmt)
+        entity = entity_factory().create(entity_type, code)
+        report_impl = factory.create_default()   # ← берём из настроек
+        result = report_impl.build(entity)
+
+        if report_impl.is_binary:
+            return Response(
+                content=result.binary[0],
+                media_type=report_impl.mime_type,
+                headers={
+                    "Content-Disposition":
+                        f'attachment; filename="report.{report_impl.file_extension}"'
+                }
+            )
+        return Response(content=result.text, media_type=report_impl.mime_type)
     except (arguments_exception, not_exist_exception) as ex:
-        raise HTTPException(status_code=400, detail=str(ex))    
+        raise HTTPException(status_code=400, detail=str(ex))
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8080)

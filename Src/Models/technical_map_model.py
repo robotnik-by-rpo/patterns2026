@@ -153,6 +153,18 @@ class technical_map_model(product):
             arguments_exception
         )
 
+    def report_header(self) -> list[str]:
+        """Getting headers"""
+        return ["Code", "Name", "Brutto", "Netto"]
+
+    def report_rows(self) -> list[list]:
+        """Getting rows"""
+        return [
+            [line.component.id, line.component.name,
+            line.component.brutto, line.component.netto]
+            for line in self.recipe.lines
+        ]
+
     @classmethod
     def create_technical_map(cls) -> "technical_map_model":
         """Factory method for creating technical map model"""

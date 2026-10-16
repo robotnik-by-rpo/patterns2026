@@ -4,7 +4,7 @@ from Src.Models.organization_model import organization_model
 from Src.Core.exception import operation_exception
 from Src.Models.settings_model import settings_model
 from Src.Core.validate import validate
-from Src.Core.exception import not_exist_exception
+from Src.Dtos.report_type_dto import report_type_enum
 from Src.Core.exception import arguments_exception
 
 class setting_manager(abstract_manager):
@@ -28,9 +28,8 @@ class setting_manager(abstract_manager):
     __default_boss_name: str = "boss"
     __default_accounter_name: str = "accounter"
     __default_company_name: str = "Ромашка"
-    __default_response_format: str = "TXT"
+    __default_response_format: report_type_enum = report_type_enum.TXT
     __settings: settings_model = None
-    __response_format: str = ""
 
 
     def __init__(self):
@@ -80,7 +79,6 @@ class setting_manager(abstract_manager):
         self.__settings.company = company
         self.__settings.is_first = is_first
         self.__settings.response_format = response
-        self.__response_format = response
         return True
 
     @property
@@ -95,16 +93,3 @@ class setting_manager(abstract_manager):
                                                         "new settings",
                                                         "new settings must be not None",
                                                         arguments_exception)
-
-    @property
-    def response_format(self)->str:
-        """Getter for response format"""
-        return self.__response_format
-
-    @response_format.setter
-    def response_format(self, new_format: str) -> None:
-        """Setter for response format"""
-        self.__response_format = validate.validated_null_empty_obj(new_format,
-                                                                   "new response format",
-                                                                   "new response must be not None or empty value",
-                                                                   arguments_exception)

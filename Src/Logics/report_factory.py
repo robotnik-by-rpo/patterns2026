@@ -18,16 +18,6 @@ class report_factory(abstract_report_factory):
     # type report and his implementation
     __mapping: dict[report_type_enum, abstract_report] = {}
 
-
-    __FORMAT_ALIASES: dict[str, report_type_enum] = {
-        "TXT":      report_type_enum.TXT,
-        "CSV":      report_type_enum.CSV,
-        "MD":       report_type_enum.MD,
-        "MARKDOWN": report_type_enum.MD,
-        "XML":      report_type_enum.XML,
-        "HTML":     report_type_enum.HTML,
-    }
-
     def __init__(self):
         self.__settings = setting_manager().settings
         if not self.__mapping:                 
@@ -54,13 +44,7 @@ class report_factory(abstract_report_factory):
                                                         "new settings",
                                                         "new settings must be not None",
                                                         arguments_exception)
-    @classmethod
-    def parse_format(cls, fmt: str) -> report_type_enum:
-        key = str(fmt).strip().upper()
-        if key not in cls.__FORMAT_ALIASES:
-            raise arguments_exception("format", f"unsupported format: {fmt}")
-        return cls.__FORMAT_ALIASES[key]
 
-    def create_default(self):
-        fmt_str = self.settings.response_format
-        return self.create(self.parse_format(fmt_str))
+    def create_default(self) -> abstract_report:
+        """Method for creating default value"""
+        return self.create(self.__settings.response_format)

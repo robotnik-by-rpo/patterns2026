@@ -36,10 +36,15 @@ def test_nomenclature_extract_returns_field_table(flour_nomenclature):
     header, rows = extract_table(flour_nomenclature)
 
     # verification
-    assert header == ["Field", "Value"]
-    keys = [r[0] for r in rows]
-    assert "name" in keys
-    assert "coef" not in keys     
+    assert header == ["Code", "Name", "Full name", "Group", "Base unit", "Type"]
+    assert len(rows) == 1
+
+    row = rows[0]
+    assert row[1] == "flour"
+    assert row[2] == "flour MAKFA"
+    assert row[3] == "ingredients"    
+    assert row[4] == "kilogram"
+    assert row[5] == "crude"      
 
 
 def test_unit_extract_returns_field_table():
@@ -51,9 +56,12 @@ def test_unit_extract_returns_field_table():
     header, rows = extract_table(gram)
 
     # verification
-    assert header == ["Field", "Value"]
-    keys = [r[0] for r in rows]
-    assert "coef" in keys
+    assert header == ["Code", "Name", "Coef", "Base"]
+    assert len(rows) == 1
+    row = rows[0]
+    assert row[1] == "gram"
+    assert row[2] == 1
+    assert row[3] == "" 
 
 
 def test_text_report_for_nomenclature(flour_nomenclature):
@@ -64,5 +72,7 @@ def test_text_report_for_nomenclature(flour_nomenclature):
     result = report.build(flour_nomenclature)
 
     # verification
-    assert "Field" in result.text
+    assert "Code | Name | Full name | Group | Base unit | Type" in result.text
     assert "flour" in result.text
+    assert "flour MAKFA" in result.text
+    assert "ingredients" in result.text

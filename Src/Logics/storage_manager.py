@@ -8,6 +8,7 @@ from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
 from Src.Factories.settings_storage_factory import base_data_setting_storage
 from Src.Factories.settings_storage_factory import settings_storage_factory
+from Src.Models.technical_map_model import technical_map_model
 
 class storage_manager(abstract_manager):
     """Class storing units, nomenclatures, company, warehouses, groups"""  
@@ -19,6 +20,7 @@ class storage_manager(abstract_manager):
     __warehouses: dict[str, list[warehouse_model]] = {}
     __groups: dict[str, group_nomenclature_model] = {}
     __is_first : bool = True
+    __tech_maps: dict[str, technical_map_model] = {}
 
     def __new__(cls):
         """Singletone"""
@@ -93,6 +95,9 @@ class storage_manager(abstract_manager):
                                                        "new company",
                                                        "new company must be not None",
                                                        arguments_exception)
+    @property
+    def tech_maps(self) -> dict[str, technical_map_model]:
+        return self.__tech_maps
 
     @property
     def is_first(self) -> bool:

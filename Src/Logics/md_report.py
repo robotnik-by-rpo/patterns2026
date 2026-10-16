@@ -11,8 +11,11 @@ Creating Markdown report by technical map
 """
 class md_report(abstract_report):
     __map_model: unit
-
+    mime_type = "text/markdown"
+    file_extension = "md"
+    is_binary = True
     def build(self, source: unit):
+        """Creating data for response"""
         source = validate.validated_type(source, unit,
                                         "source", 
                                         "source must be unit",

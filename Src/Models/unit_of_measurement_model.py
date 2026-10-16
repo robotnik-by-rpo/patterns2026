@@ -44,6 +44,19 @@ class unit_of_measurement_model(unit):
             return self.coef
         return self.coef * self.__base.common_coef
     
+
+    def report_header(self) -> list[str]:
+        """Getting headers"""
+        return ["Code", "Name", "Coef", "Base"]
+    
+
+    def report_rows(self) -> list[list]:
+        """Getting rows"""
+        return [[
+            self.id, self.name, self.coef,
+            self.base.name if self.base else ""
+        ]]
+
     @classmethod
     def create_kg(cls) -> "unit_of_measurement_model":
         """Factory method for creating kilogram"""

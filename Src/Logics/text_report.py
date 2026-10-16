@@ -11,8 +11,12 @@ Creating text report by technical map
 """
 class text_report(abstract_report):
     __map_model: unit
+    mime_type = "text/plain"
+    file_extension = "txt"
+    is_binary = False
 
     def build(self, source: unit):
+        """Creating data for response"""
         source = validate.validated_type(source, unit,
                                  "source", "source must be unit",
                                  arguments_exception)

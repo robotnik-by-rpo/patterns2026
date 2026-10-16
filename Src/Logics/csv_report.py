@@ -13,8 +13,12 @@ Creating CSV report by technical map
 """
 class csv_report(abstract_report):
     __map_model: unit
+    mime_type = "text/csv"
+    file_extension = "csv"
+    is_binary = True
 
     def build(self, source: unit):
+        """Creating data for response"""
         source = validate.validated_type(source, unit,
                                         "source", 
                                         "source must be unit",

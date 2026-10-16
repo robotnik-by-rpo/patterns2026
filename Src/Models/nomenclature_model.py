@@ -87,6 +87,18 @@ class nomenclature_model(unit):
                                                             "undefine position of type",
                                                             arguments_exception)
         
+    def report_header(self) -> list[str]:
+        """Getting headers"""
+        return ["Code", "Name", "Full name", "Group", "Base unit", "Type"]
+
+    def report_rows(self) -> list[list]:
+        """Getting rows"""
+        return [[
+            self.id, self.name, self.full_name,
+            self.group_of_nomenclature.name,
+            self.base_unit.name, self.type_of_pos
+        ]]
+
     @classmethod
     def __template_create_nomenclature(cls,
                                        names: list[str],
