@@ -9,6 +9,7 @@ from Src.Core.exception import arguments_exception
 from Src.Factories.settings_storage_factory import base_data_setting_storage
 from Src.Factories.settings_storage_factory import settings_storage_factory
 from Src.Models.technical_map_model import technical_map_model
+from Src.Core.exception import not_exist_exception
 
 class storage_manager(abstract_manager):
     """Class storing units, nomenclatures, company, warehouses, groups"""  
@@ -42,6 +43,28 @@ class storage_manager(abstract_manager):
         self.__company = data_settings["company"]
         self.__nomenclatures = data_settings["nomenclatures"]
         self.__warehouses = data_settings["warehouses"]
+        self.__tech_maps = data_settings["tech_maps"]
+
+
+    def find_nomenclature(self, code: str) -> nomenclature_model:
+        for items in self.__nomenclatures.values():
+            for nom in items.values():
+                if nom.id == code or nom.name == code:
+                    return nom
+        raise not_exist_exception("nomenclature", f"not found: {code}")
+
+    def find_unit(self, code: str) -> unit_of_measurement_model:
+        for units in self.__units.values():
+            for u in units.values():
+                if u.id == code or u.name == code:
+                    return u
+        raise not_exist_exception("unit", f"not found: {code}")
+
+    def find_recipe(self, code: str) -> technical_map_model:
+        for tm in self.__tech_maps.values():
+            if tm.id == code or tm.name == code:
+                return tm
+        raise not_exist_exception("recipe", f"not found: {code}")
     
     @property
     def groups_nomenclature(self) -> list[group_nomenclature_model]:

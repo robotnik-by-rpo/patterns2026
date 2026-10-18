@@ -12,9 +12,6 @@ Creating XML report by technical map
 """
 class xml_report(abstract_report):
     __map_model: unit
-    mime_type = "application/xml"
-    file_extension = "xml"
-    is_binary = False
 
     def build(self, source: unit):
         """Creating data for response"""
@@ -40,3 +37,18 @@ class xml_report(abstract_report):
     
     def _attr_name(self, header: str) -> str:
         return header.strip().lower().replace(" ", "_")
+
+    @property
+    def mime_type(self) -> str:
+        """Getter for mime_type"""
+        return "application/xml"
+
+    @property
+    def file_extension(self) -> str:
+        """Getter for file_extension"""
+        return "xml"
+
+    @property
+    def is_binary(self) -> bool:
+        """Getter for is_binary"""
+        return False

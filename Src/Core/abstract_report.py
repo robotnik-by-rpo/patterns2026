@@ -9,10 +9,21 @@ class abstract_report(ABC):
     """
     Generate report
     """
-    mime_type: str = "text/plain"
-    file_extension: str = "txt"
-    is_binary: bool = False
-
     @abstractmethod
     def build(self, source: unit) -> report_result_dto:
+        ...
+
+    @property
+    @abstractmethod
+    def mime_type(self) -> str:
+        ...
+
+    @property
+    @abstractmethod
+    def file_extension(self) -> str:
+        ...
+
+    @property
+    @abstractmethod
+    def is_binary(self) -> bool:
         ...

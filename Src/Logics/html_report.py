@@ -12,9 +12,6 @@ Creating HTML report by technical map
 """
 class html_report(abstract_report):
     __map_model: unit
-    mime_type = "text/html"
-    file_extension = "html"
-    is_binary = False
 
     def build(self, source: unit):
         """Creating data for response"""        
@@ -36,3 +33,19 @@ class html_report(abstract_report):
         result = report_result_dto()
         result.text = html
         return result
+
+
+    @property
+    def mime_type(self) -> str:
+        """Getter for mime_type"""
+        return "text/html"
+
+    @property
+    def file_extension(self) -> str:
+        """Getter for file_extension"""
+        return "html"
+
+    @property
+    def is_binary(self) -> bool:
+        """Getter for is_binary"""
+        return False

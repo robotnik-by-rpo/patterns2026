@@ -11,9 +11,6 @@ Creating text report by technical map
 """
 class text_report(abstract_report):
     __map_model: unit
-    mime_type = "text/plain"
-    file_extension = "txt"
-    is_binary = False
 
     def build(self, source: unit):
         """Creating data for response"""
@@ -30,3 +27,18 @@ class text_report(abstract_report):
         result = report_result_dto()
         result.text = "\n".join(lines)
         return result
+
+    @property
+    def mime_type(self) -> str:
+        """Getter for mime_type"""
+        return "text/plain"
+
+    @property
+    def file_extension(self) -> str:
+        """Getter for file_extension"""
+        return "txt"
+
+    @property
+    def is_binary(self) -> bool:
+        """Getter for is_binary"""
+        return False

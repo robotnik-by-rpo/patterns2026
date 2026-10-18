@@ -13,9 +13,6 @@ Creating CSV report by technical map
 """
 class csv_report(abstract_report):
     __map_model: unit
-    mime_type = "text/csv"
-    file_extension = "csv"
-    is_binary = True
 
     def build(self, source: unit):
         """Creating data for response"""
@@ -34,3 +31,18 @@ class csv_report(abstract_report):
         result = report_result_dto()
         result.binary = [buffer.getvalue().encode("utf-8-sig")]
         return result
+
+    @property
+    def mime_type(self) -> str:
+        """Getter for mime_type"""
+        return "text/csv"
+
+    @property
+    def file_extension(self) -> str:
+        """Getter for file_extension"""
+        return "csv"
+
+    @property
+    def is_binary(self) -> bool:
+        """Getter for is_binary"""
+        return True

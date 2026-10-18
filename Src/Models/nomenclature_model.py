@@ -3,8 +3,9 @@ from Src.Core.abc_data import unit
 from Src.Models.group_nomenclature_model import group_nomenclature_model
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
+from Src.Core.abstract_reportable import abstract_reportable
 
-class nomenclature_model(unit):
+class nomenclature_model(unit, abstract_reportable):
     """It's class for initing good, material or service"""
     _MAX_SIZE_NAME = 50
     _FULL_MAX_SIZE_NAME = 255
