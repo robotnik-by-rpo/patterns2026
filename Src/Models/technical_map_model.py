@@ -4,6 +4,7 @@ from Src.Core.exception import arguments_exception
 from Src.Models.recipe_model import recipe_model
 from Src.Models.organization_model import organization_model
 from Src.Models.unit_of_measurement_model import unit_of_measurement_model
+from Src.Core.abstract_reportable import abstract_reportable
 from Src.Models.package_model import package_model
 from datetime import datetime
 
@@ -11,7 +12,7 @@ from datetime import datetime
 Class for store information about dish
 Source: https://t-secrets.ru/documents/tehnologicheskaya-karta-bliuda/
 """
-class technical_map_model(product):
+class technical_map_model(product, abstract_reportable):
     __recipe: recipe_model = None
     __source: str = ""
     __date_of_approval: datetime = None
@@ -152,6 +153,18 @@ class technical_map_model(product):
             "new date must be not None",
             arguments_exception
         )
+
+    def report_header(self) -> list[str]:
+        """Getting headers"""
+        return ["Code", "Name", "Brutto", "Netto"]
+
+    def report_rows(self) -> list[list]:
+        """Getting rows"""
+        return [
+            [line.component.id, line.component.name,
+            line.component.brutto, line.component.netto]
+            for line in self.recipe.lines
+        ]
 
     @classmethod
     def create_technical_map(cls) -> "technical_map_model":

@@ -1,8 +1,9 @@
 from Src.Core.abc_data import unit
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
+from Src.Core.abstract_reportable import abstract_reportable
 
-class unit_of_measurement_model(unit):
+class unit_of_measurement_model(unit, abstract_reportable):
     """It's class for implementation unit of measurement model"""
 
     __coef: int
@@ -44,6 +45,19 @@ class unit_of_measurement_model(unit):
             return self.coef
         return self.coef * self.__base.common_coef
     
+
+    def report_header(self) -> list[str]:
+        """Getting headers"""
+        return ["Code", "Name", "Coef", "Base"]
+    
+
+    def report_rows(self) -> list[list]:
+        """Getting rows"""
+        return [[
+            self.id, self.name, self.coef,
+            self.base.name if self.base else ""
+        ]]
+
     @classmethod
     def create_kg(cls) -> "unit_of_measurement_model":
         """Factory method for creating kilogram"""

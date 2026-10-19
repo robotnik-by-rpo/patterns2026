@@ -3,8 +3,9 @@ from Src.Core.abc_data import unit
 from Src.Models.group_nomenclature_model import group_nomenclature_model
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
+from Src.Core.abstract_reportable import abstract_reportable
 
-class nomenclature_model(unit):
+class nomenclature_model(unit, abstract_reportable):
     """It's class for initing good, material or service"""
     _MAX_SIZE_NAME = 50
     _FULL_MAX_SIZE_NAME = 255
@@ -87,6 +88,18 @@ class nomenclature_model(unit):
                                                             "undefine position of type",
                                                             arguments_exception)
         
+    def report_header(self) -> list[str]:
+        """Getting headers"""
+        return ["Code", "Name", "Full name", "Group", "Base unit", "Type"]
+
+    def report_rows(self) -> list[list]:
+        """Getting rows"""
+        return [[
+            self.id, self.name, self.full_name,
+            self.group_of_nomenclature.name,
+            self.base_unit.name, self.type_of_pos
+        ]]
+
     @classmethod
     def __template_create_nomenclature(cls,
                                        names: list[str],
@@ -102,7 +115,7 @@ class nomenclature_model(unit):
                     group, 
                     unit_measurement,
                     type_)
-            nomenclatures[type_] = nom 
+            nomenclatures[n] = nom 
         return nomenclatures
 
     @classmethod

@@ -4,19 +4,27 @@ from Src.Models.organization_model import organization_model
 from Src.Models.unit_of_measurement_model import unit_of_measurement_model
 from Src.Models.warehouse_model import warehouse_model
 from typing import TypedDict
+from Src.Models.technical_map_model import technical_map_model
 from collections.abc import Callable
 
 """Class for store base objects like caches"""
 class base_data_setting_storage(TypedDict):
-    create_units: dict[str, dict[str, unit_of_measurement_model]]
+    units: dict[str, dict[str, unit_of_measurement_model]]
     groups: dict[str, group_nomenclature_model]
     company: organization_model
     nomenclatures: dict[str, list[nomenclature_model]]
     warehouses: dict[str, list[warehouse_model]]
+    tech_maps: dict[str, technical_map_model]
 
 
 """Class for call method for creating objects"""
 class settings_storage_factory:
+
+    @staticmethod
+    def __create_tech_map() -> dict[str, technical_map_model]:
+        """Factory method fot creating technical map"""
+        return {"French baguette": technical_map_model.create_technical_map()}
+
     @staticmethod
     def __create_units() -> dict[str,dict[str,unit_of_measurement_model]]:
         """Factory method for creating base units"""
@@ -77,13 +85,15 @@ class settings_storage_factory:
         units = cls.__create_units()
         groups = cls.__create_groups()
         company = cls.__create_company()
+        tech = cls.__create_tech_map()
 
         return base_data_setting_storage(
             units=units,
             groups=groups,
             company=company,
             nomenclatures=cls.__create_nomenclature(groups,units),
-            warehouses=cls.__create_warehouses(company, units)
+            warehouses=cls.__create_warehouses(company, units),
+            tech_maps=tech
         )
 
 

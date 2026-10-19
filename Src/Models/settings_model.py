@@ -2,6 +2,7 @@ from Src.Core.abc_data import unit
 from Src.Models.organization_model import organization_model
 from Src.Core.exception import arguments_exception
 from Src.Core.validate import validate
+from Src.Dtos.report_type_dto import report_type_enum
 
 class settings_model(unit):
     """Settings from json file"""
@@ -10,6 +11,7 @@ class settings_model(unit):
     __boss_name: str = ""
     __accounter_name: str = ""
     __is_first: bool = True
+    __response_format: report_type_enum = report_type_enum.TXT
 
     @property
     def company(self)->organization_model:
@@ -59,3 +61,19 @@ class settings_model(unit):
     def is_first(self, new_flag:bool)->None:
         """Setter for flag is_first"""
         self.__is_first = new_flag
+
+    @property
+    def response_format(self) -> report_type_enum:
+        """Getter for response format"""
+        return self.__response_format
+
+    @response_format.setter
+    def response_format(self, new_format) -> None:
+        if isinstance(new_format, str):
+            new_format = report_type_enum.from_string(new_format)
+        if not isinstance(new_format, report_type_enum):
+            raise arguments_exception(
+                "response format",
+                "response format must be report_type_enum or string"
+            )
+        self.__response_format = new_format
