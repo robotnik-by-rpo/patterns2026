@@ -1,0 +1,1139 @@
+{
+  "units": {
+    "weight": {
+      "gram": {
+        "id": "0966d2eee4cd48a6810a1da5aa6d42b0",
+        "name": "gram",
+        "coef": 1,
+        "unit": null
+      },
+      "kilogram": {
+        "id": "5d573e9e74a64c55bbac5de79fe7901e",
+        "name": "kilogram",
+        "coef": 1000,
+        "unit": {
+          "id": "85af7d0cff4042ac834aab9c3875cdd4",
+          "name": "gram",
+          "coef": 1,
+          "unit": null
+        }
+      },
+      "ton": {
+        "id": "67608d23bbc74703b630bb366113653d",
+        "name": "ton",
+        "coef": 1000,
+        "unit": {
+          "id": "3ad2bb9ff7a04aa78bc04dbd6c770451",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "d35d8dcddef742cfa26390a7763dab26",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        }
+      }
+    },
+    "volume": {
+      "milliliter": {
+        "id": "0b6d72cb72cf4296b3c7a278548b1835",
+        "name": "milliliter",
+        "coef": 1,
+        "unit": null
+      },
+      "liter": {
+        "id": "6c9c77760cd14559a960740c17810ba9",
+        "name": "liter",
+        "coef": 1000,
+        "unit": {
+          "id": "49b539fcd14242968b50b990649a3499",
+          "name": "milliliter",
+          "coef": 1,
+          "unit": null
+        }
+      },
+      "cubic meter": {
+        "id": "660b5dece44d4eb093eab28862fe3871",
+        "name": "cubic meter",
+        "coef": 1000,
+        "unit": {
+          "id": "d39361f5c04c47888fbfaa02f9f513c5",
+          "name": "liter",
+          "coef": 1000,
+          "unit": {
+            "id": "e8cdf4630fda416388193d87e431abc8",
+            "name": "milliliter",
+            "coef": 1,
+            "unit": null
+          }
+        }
+      }
+    },
+    "square": {
+      "square millimete": {
+        "id": "2abd6a9560f14a78ae07da1574c706ed",
+        "name": "square millimeter",
+        "coef": 1,
+        "unit": null
+      },
+      "square centimeter": {
+        "id": "7941dd98006b450291a7e5d69ce1fc08",
+        "name": "square centimeter",
+        "coef": 100,
+        "unit": {
+          "id": "c93386e5c4a8473990019f491a5e01cf",
+          "name": "square millimeter",
+          "coef": 1,
+          "unit": null
+        }
+      },
+      "square meter": {
+        "id": "f2e921121400414d800d5027a5d0a1ed",
+        "name": "square meter",
+        "coef": 10000,
+        "unit": {
+          "id": "b81b4ad201b34eea8574428c8f053e99",
+          "name": "square centimeter",
+          "coef": 100,
+          "unit": {
+            "id": "15ad1b746e4146c7b78fa17c510daa8e",
+            "name": "square millimeter",
+            "coef": 1,
+            "unit": null
+          }
+        }
+      }
+    }
+  },
+  "nomenclatures": {
+    "ingredients": {
+      "flour": {
+        "id": "5334f474307248f6a02cc5e68919bdcc",
+        "name": "flour",
+        "full_name": "flour MAKFA",
+        "group_of_nomenclature": {
+          "id": "7281e237aa7646fbaa840c15b90a5b71",
+          "name": "ingredients"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "crude"
+      },
+      "salt": {
+        "id": "22c47ef80914496db636579764a6ed98",
+        "name": "salt",
+        "full_name": "salt Tchaikovsky",
+        "group_of_nomenclature": {
+          "id": "7281e237aa7646fbaa840c15b90a5b71",
+          "name": "ingredients"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "crude"
+      },
+      "yeast": {
+        "id": "25509c6cf2f74e72bd4f3d8f235bdfc0",
+        "name": "yeast",
+        "full_name": "water Baical",
+        "group_of_nomenclature": {
+          "id": "7281e237aa7646fbaa840c15b90a5b71",
+          "name": "ingredients"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "crude"
+      },
+      "water": {
+        "id": "b35b008835b3423eac06e9a64b500c86",
+        "name": "water",
+        "full_name": "yeast Saf-Levure",
+        "group_of_nomenclature": {
+          "id": "7281e237aa7646fbaa840c15b90a5b71",
+          "name": "ingredients"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "crude"
+      }
+    },
+    "blanks": {
+      "potato cubes": {
+        "id": "f3a1765478ec4e82892271587038c6b8",
+        "name": "potato cubes",
+        "full_name": "potato Gala",
+        "group_of_nomenclature": {
+          "id": "e19a3fa95cf74042b421d497ecb8e488",
+          "name": "blanks"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "crude"
+      },
+      "potato slices": {
+        "id": "4c9f5cc3332a46c49b10752be4c10390",
+        "name": "potato slices",
+        "full_name": "potato Red Scarlet",
+        "group_of_nomenclature": {
+          "id": "e19a3fa95cf74042b421d497ecb8e488",
+          "name": "blanks"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "crude"
+      }
+    },
+    "prepack": {
+      "dumpligs": {
+        "id": "0dc115ea7d434a9cbedcab36fc387b85",
+        "name": "dumpligs",
+        "full_name": "dumpligs We sculpt and cook",
+        "group_of_nomenclature": {
+          "id": "49dbdbf1865e4b0ea9172415e95eda8f",
+          "name": "prepack"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "prepack"
+      },
+      "nuggets": {
+        "id": "6dcd509062624b848991a9094b099dc5",
+        "name": "nuggets",
+        "full_name": "nuggets The Golden Cockerel",
+        "group_of_nomenclature": {
+          "id": "49dbdbf1865e4b0ea9172415e95eda8f",
+          "name": "prepack"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "prepack"
+      }
+    },
+    "order": {},
+    "finished products": {
+      "baguette": {
+        "id": "ffdb0eefd8cd463084e760f10c70a9c4",
+        "name": "baguette",
+        "full_name": "baguette in French",
+        "group_of_nomenclature": {
+          "id": "49bd8717089844229ea387e7ba44d1d4",
+          "name": "finished products"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "dish"
+      },
+      "homemade bun": {
+        "id": "65eb1b3b1d514e21aa0260a1a02f96f4",
+        "name": "homemade bun",
+        "full_name": "homemade bun in Russian",
+        "group_of_nomenclature": {
+          "id": "49bd8717089844229ea387e7ba44d1d4",
+          "name": "finished products"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "dish"
+      }
+    },
+    "consumables": {
+      "package": {
+        "id": "ef70361db0964b8fb7b75ec90559e624",
+        "name": "package",
+        "full_name": "package Europlast",
+        "group_of_nomenclature": {
+          "id": "ce8dfd65fa064233a4d8b5efed202526",
+          "name": "consumables"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "dish"
+      },
+      "box": {
+        "id": "4ba71425877540d794115886f769aea2",
+        "name": "box",
+        "full_name": "box L-PAK",
+        "group_of_nomenclature": {
+          "id": "ce8dfd65fa064233a4d8b5efed202526",
+          "name": "consumables"
+        },
+        "base_unit": {
+          "id": "5d573e9e74a64c55bbac5de79fe7901e",
+          "name": "kilogram",
+          "coef": 1000,
+          "unit": {
+            "id": "85af7d0cff4042ac834aab9c3875cdd4",
+            "name": "gram",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "type_of_pos": "dish"
+      }
+    }
+  },
+  "company": {
+    "id": "951442498a324e68b40ff96f0b8e28b1",
+    "name": "Ромашка",
+    "inn": "1350791749",
+    "bic": "782189947",
+    "current_account": "78328490185897461647",
+    "form_of_ownership": "ООО"
+  },
+  "warehouses": {
+    "A": [
+      {
+        "id": "ce1715bc16fb4d7bb721bab1714bb8df",
+        "name": "A01",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "c385de669206493684fe15bd56839e80",
+          "name": "warehouse",
+          "square": 183.0,
+          "address": "Moscow, Pushkina St. 35",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "292cd61300df4bf5b985850d6f4781c8",
+        "name": "A02",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "056ab363430f4b9f83671cc54e0835b1",
+          "name": "warehouse",
+          "square": 1891.0,
+          "address": "Saint Petersburg, Repina St. 75",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      }
+    ],
+    "A+": [
+      {
+        "id": "d02818842e6c4c53879a1922d0aa4206",
+        "name": "A+03",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "1ac748f5f0394a71b1446340ed1593a1",
+          "name": "warehouse",
+          "square": 889.0,
+          "address": "Saint Petersburg, Sofia St. 92",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "be550f116b0343e09c4dc01ba49cfd08",
+        "name": "A+07",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "3fb40e3e7cc9478fa7b2bc60910ac735",
+          "name": "warehouse",
+          "square": 712.0,
+          "address": "Moscow, Volkhonka St. 24",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "3c783a007b054036ae3938fefb57b213",
+        "name": "A+10",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "e18bf61738cc4a4bac55e96b482b2454",
+          "name": "warehouse",
+          "square": 142.0,
+          "address": "Voronezh, 25th October St. 45",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      }
+    ],
+    "B": [
+      {
+        "id": "c6aff8abaf1748da9703c7c180c9a5e0",
+        "name": "B03",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "a7736631ded341c8aebe3a179c09c403",
+          "name": "warehouse",
+          "square": 81289.0,
+          "address": "Saint Petersburg, Sofia St. 12",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "60da47bafe2045c89777135d1c2fde55",
+        "name": "B09",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "8416aa4c32ab4c88a2c98ac13cc00d3f",
+          "name": "warehouse",
+          "square": 71241.0,
+          "address": "Moscow, Volkhonka St. 10",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "9a644b7fd23c4b6c99cccb5f23ae5c3a",
+        "name": "B11",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "88882aaffeea460b87dcc121b1f1cb6c",
+          "name": "warehouse",
+          "square": 14224.0,
+          "address": "Voronezh, 25th October St. 15",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      }
+    ],
+    "B+": [
+      {
+        "id": "bcc8ec7d0a6e4668a946df89a06c60d3",
+        "name": "B+01",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "c61398642ecd40ef98fa6711e2a5927f",
+          "name": "warehouse",
+          "square": 889.0,
+          "address": "Saint Petersburg, Sofia St. 12",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "6440e12f6cd94c53a144b4020591035e",
+        "name": "B+02",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "d33ce5d067404c2f93af0f16f0e0f5ae",
+          "name": "warehouse",
+          "square": 712.0,
+          "address": "Moscow, Volkhonka St. 24A",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "17fd59bb2a834f309e25fa8575b180a0",
+        "name": "B+11",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "8953b273d06b474bade289986ee10d06",
+          "name": "warehouse",
+          "square": 142.0,
+          "address": "Voronezh, 25th October St. 5",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      }
+    ],
+    "C": [
+      {
+        "id": "3afc0a56512d48acbed3fda175b38fa5",
+        "name": "C01",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "c9d5ba8002564d789d657b71b8f59b41",
+          "name": "warehouse",
+          "square": 889.0,
+          "address": "Saint Petersburg, Sofia St. 92",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "0cb72a26eef248c3ab725fa23b905951",
+        "name": "C02",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "d41d244e33bb4a999e2842e37296def2",
+          "name": "warehouse",
+          "square": 712.0,
+          "address": "Moscow, Volkhonka St. 24",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      }
+    ],
+    "D": [
+      {
+        "id": "509eb6dcadf748c4b3d34d67dbc29115",
+        "name": "D03",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "03d1ebb960914058a263ef1deac4b94e",
+          "name": "warehouse",
+          "square": 81.0,
+          "address": "Saint Petersburg, Sofia St. 192",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "1e154206de494d5494b79db69c941eca",
+        "name": "D07",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "32967b095bb34265a7148024ca201885",
+          "name": "warehouse",
+          "square": 712.0,
+          "address": "Moscow, Volkhonka St. 14",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "7471191e7dc449ee9d41707e1c225de6",
+        "name": "D10",
+        "warehouse_owner": {
+          "id": "951442498a324e68b40ff96f0b8e28b1",
+          "name": "Ромашка",
+          "inn": "1350791749",
+          "bic": "782189947",
+          "current_account": "78328490185897461647",
+          "form_of_ownership": "ООО"
+        },
+        "description": {
+          "id": "bbcd1a5f7f1c442a8e643d907538be7e",
+          "name": "warehouse",
+          "square": 119.0,
+          "address": "Voronezh, 25th October St. 25",
+          "unit": {
+            "id": "f2e921121400414d800d5027a5d0a1ed",
+            "name": "square meter",
+            "coef": 10000,
+            "unit": {
+              "id": "b81b4ad201b34eea8574428c8f053e99",
+              "name": "square centimeter",
+              "coef": 100,
+              "unit": {
+                "id": "15ad1b746e4146c7b78fa17c510daa8e",
+                "name": "square millimeter",
+                "coef": 1,
+                "unit": null
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "groups": {
+    "order": {
+      "id": "ca2a0d1df014490fbd29797078bfff8e",
+      "name": "order"
+    },
+    "ingredients": {
+      "id": "7281e237aa7646fbaa840c15b90a5b71",
+      "name": "ingredients"
+    },
+    "blanks": {
+      "id": "e19a3fa95cf74042b421d497ecb8e488",
+      "name": "blanks"
+    },
+    "prepack": {
+      "id": "49dbdbf1865e4b0ea9172415e95eda8f",
+      "name": "prepack"
+    },
+    "finished products": {
+      "id": "49bd8717089844229ea387e7ba44d1d4",
+      "name": "finished products"
+    },
+    "consumables": {
+      "id": "ce8dfd65fa064233a4d8b5efed202526",
+      "name": "consumables"
+    }
+  },
+  "is_first": false,
+  "tech_maps": {
+    "French baguette": {
+      "id": "aa017bff19d141b1979a99bc548aaff4",
+      "name": "French baguette",
+      "unit": {
+        "id": "2282253b43ed4e819d797cba80c53714",
+        "name": "gram",
+        "coef": 1,
+        "unit": null
+      },
+      "recipe": {
+        "id": "47d7382b8e6f4876a069646b3466bbd7",
+        "name": "French baguette",
+        "lines": [
+          {
+            "component": {
+              "id": "fcebca220f2a427e8b1e6023f17b156b",
+              "name": "flour",
+              "brutto": 187.5,
+              "netto": 187.5,
+              "unit": {
+                "id": "2f472f140f1f4878973081933950e81e",
+                "name": "gram",
+                "coef": 1,
+                "unit": null
+              },
+              "waste": 0
+            },
+            "quantity": 187.5,
+            "share": 1.0,
+            "brutto": 187.5,
+            "netto": 187.5
+          },
+          {
+            "component": {
+              "id": "2a7b929be32b4a4f9f7eb1e3834926b0",
+              "name": "water",
+              "brutto": 150,
+              "netto": 150.0,
+              "unit": {
+                "id": "9fc3306c6dbe44c89acbe135de0938c1",
+                "name": "milliliter",
+                "coef": 1,
+                "unit": null
+              },
+              "waste": 0
+            },
+            "quantity": 150.0,
+            "share": 1.0,
+            "brutto": 150.0,
+            "netto": 150.0
+          },
+          {
+            "component": {
+              "id": "ddcb70e91d9e46a2b2b09a1e5c65e11a",
+              "name": "yeast",
+              "brutto": 3,
+              "netto": 3.0,
+              "unit": {
+                "id": "2f472f140f1f4878973081933950e81e",
+                "name": "gram",
+                "coef": 1,
+                "unit": null
+              },
+              "waste": 0
+            },
+            "quantity": 3.0,
+            "share": 1.0,
+            "brutto": 3.0,
+            "netto": 3.0
+          },
+          {
+            "component": {
+              "id": "153cda70fc6940e89f39a57f17d555b1",
+              "name": "salt",
+              "brutto": 3.5,
+              "netto": 3.5,
+              "unit": {
+                "id": "2f472f140f1f4878973081933950e81e",
+                "name": "gram",
+                "coef": 1,
+                "unit": null
+              },
+              "waste": 0
+            },
+            "quantity": 3.5,
+            "share": 1.0,
+            "brutto": 3.5,
+            "netto": 3.5
+          },
+          {
+            "component": {
+              "id": "6020ed0210be42739684aad0cc87582f",
+              "name": "paper",
+              "brand": "package",
+              "unit": {
+                "id": "46111726dd0747f78a1af08501933da0",
+                "name": "liter",
+                "coef": 1000,
+                "unit": {
+                  "id": "ed20f311fd5d4b0f9600ec64e50802af",
+                  "name": "milliliter",
+                  "coef": 1,
+                  "unit": null
+                }
+              },
+              "brutto": 3.5,
+              "waste": 0.0,
+              "measure": 3.5
+            },
+            "quantity": 1.0,
+            "share": 1.0,
+            "brutto": 3.5,
+            "netto": 3.5
+          }
+        ],
+        "instruction": [
+          "Отмеряем 300 мл воды и слегка подогреваем ее в микроволновке (прям чуть теплая должна быть, не выше 40С). Высыпаем пакетик сухих дрожжей (в США расфасовка в 7 гр., поэтому округлил для удобства. В оригинале 6 гр. сухих дрожжей или 12 гр. свежих). Хорошо размешиваем дрожжи в воде и оставляем на 5 минут.",
+          "В эту же миску насыпаем 375 гр. муки и 7 гр. соли. Все это очень удобно делать с кухонными весами. Надеюсь, вы ими уже давно обзавелись.",
+          "Осторожно вымешиваем тесто лопаточкой от краев к центру минут пять, больше не надо. Тесто получается очень липкое.",
+          "Закрываем миску с тестом пищевой пленкой, делаем несколько наколов в пленке для циркуляции воздуха и ставим в теплое место на 1,5/2 часа. Тесто сильно увеличится в объеме.\nМожно дольше. Можно тесто подержать в тепле это время, затем убрать в холодильник на ночь, например, чтобы испечь багет с утра к завтраку.",
+          "Включаем духовку на 240°С (465°F). На разделочный стол, припудренный мукой, вываливаем наше тесто. Аккуратно, не обминая, чтобы сохранить объем.\nНебольшое хауту: чтобы не пачкать мебель мукой и жиром, я всегда использую вощеную бумагу для работы с тестом. Просто отрываю пару полосок, провожу мокрой губкой по поверхности стола и кладу сверху вощеную бумагу. Бумага тогда не двигается и очень удобно раскатывать и вымешивать любое тесто. Потом эта бумага просто выкидывается и уборки на кухне на порядок меньше!",
+          "Делим тесто пополам, стараясь не мять его. Аккуратно выкладываем в форму для багетов и распределяем вдоль ложбинок. Накрываем чистым полотенцем и оставляем до момента полного разогрева духовки (минут двадцать) - тесто за это время еще поднимется.",
+          "Как только духовка разогрелась, ставим в самый ее низ поддон с ГОРЯЧЕЙ водой (ЭТО НЕОБХОДИМО!). Закрываем духовку на минут пять, чтобы она наполнилась паром. В это время обычными ножницами, бритвенным лезвием или острым ножом делаем косые надрезы на наших батончиках.\nСтавим форму с багетами в духовку на 25-35 минут, в зависимости от желаемой степени поджаристости корочки.",
+          "Достаем форму из печи, перекладываем батоны на решетку для остывания. Оставляем их ничем не прикрывая минимум на 20 минут - багет должен дозреть."
+        ],
+        "brutto": 347.5,
+        "netto": 347.5
+      },
+      "source": "M. P. Mogilny 2nd edition DeLi plus, 2016, - 888 p.",
+      "date": {
+        "datetime": "2025-09-08T00:00:00",
+        "day": 8,
+        "month": 9,
+        "year": 2025,
+        "hour": 0,
+        "minute": 0,
+        "second": 0,
+        "microsecond": 0
+      },
+      "general_manager": "Lavrenov O.S.",
+      "company": {
+        "id": "c85ba9e0308a4513931cf9eda3cbdb86",
+        "name": "Ромашка",
+        "inn": "1350791749",
+        "bic": "782189947",
+        "current_account": "78328490185897461647",
+        "form_of_ownership": "ООО"
+      },
+      "package": {
+        "id": "50c3d50449c94a419491557dcbcbb179",
+        "name": "paper",
+        "brand": "package",
+        "unit": {
+          "id": "6cced8012afb48afa573abfbba36239c",
+          "name": "liter",
+          "coef": 1000,
+          "unit": {
+            "id": "3aaa86ad1def4039926ea4932ee0c58b",
+            "name": "milliliter",
+            "coef": 1,
+            "unit": null
+          }
+        },
+        "brutto": 3.5,
+        "waste": 0.0,
+        "measure": 3.5
+      },
+      "brutto": 347.5,
+      "netto": 347.5
+    }
+  }
+}

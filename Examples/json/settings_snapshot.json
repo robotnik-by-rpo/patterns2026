@@ -1,0 +1,16 @@
+{
+  "id": "89e3fe13b8934d1999098d1e20011f23",
+  "name": "",
+  "company": {
+    "id": "c3beb00d8a24483c8109490445a61c83",
+    "name": "Ромашка",
+    "inn": "1829111559",
+    "bic": "124125513",
+    "current_account": "18291112593229111559",
+    "form_of_ownership": "ООО"
+  },
+  "boss_name": "boss",
+  "accounter_name": "accounter",
+  "is_first": true,
+  "response_format": "TXT"
+}

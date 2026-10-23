@@ -52,7 +52,7 @@ def get_default_report(entity_type: str = "recipe", code: str = ""):
     """Format getting from settings.json"""
     try:
         entity = entity_factory().create(entity_type, code)
-        report_impl = factory.create_default()   # ← берём из настроек
+        report_impl = factory.create_default()   
         result = report_impl.build(entity)
 
         if report_impl.is_binary:
