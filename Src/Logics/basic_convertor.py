@@ -12,6 +12,7 @@ class basic_convertor(abstract_convertor):
         self.__mapping[str] = self.__convert_str
         self.__mapping[int] = self.__convert_int
         self.__mapping[float] = self.__convert_float
+        self.__mapping[bool] = self.__convert_bool
 
     def convert(self, object: str | float | int) -> dict:
         """Convert basic types into dict"""
@@ -30,4 +31,8 @@ class basic_convertor(abstract_convertor):
     
     def __convert_float(self, object: float) -> dict:
         """Convert float object into dict"""
-        return {"value_dot": object}
+        return {"value_float": object}
+    
+    def __convert_bool(self, object: bool) -> dict:
+        """Convert bool object into dict"""
+        return {"value_bool": object}

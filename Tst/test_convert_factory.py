@@ -18,7 +18,7 @@ def test_convert_factory_converts_simple_types():
     # Verification
     assert as_str == {"line": "text"}
     assert as_int == {"value_integer": 10}
-    assert as_float == {"value_dot": 1.5}
+    assert as_float == {"value_float": 1.5}
 
 
 def test_convert_factory_converts_datetime():
@@ -57,7 +57,7 @@ def test_convert_factory_rejects_unknown_type():
 
     # Action
     with pytest.raises(not_exist_exception) as exception:
-        _ = factory.convert([1, 2, 3])
+        _ = factory.convert(b"bytes")
 
     # Verification
     assert "type convert" in str(exception.value)

@@ -26,7 +26,7 @@ def test_basic_convertor_converts_int_and_float():
 
     # Verification
     assert as_int == {"value_integer": 42}
-    assert as_float == {"value_dot": 3.14}
+    assert as_float == {"value_float": 3.14}
 
 
 def test_basic_convertor_rejects_unknown_type():

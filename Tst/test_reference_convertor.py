@@ -53,14 +53,14 @@ def test_reference_convertor_converts_storage_manager():
     result = convertor.convert(storage)
 
     # Verification
-    assert "units" in result
+    assert "units_of_measurement" in result   
     assert "nomenclatures" in result
     assert "warehouses" in result
-    assert "groups" in result
+    assert "groups_nomenclature" in result   
     assert "tech_maps" in result
     assert isinstance(result["warehouses"]["A"], list)
     assert len(result["warehouses"]["A"]) > 0
-    assert isinstance(result["units"]["weight"], dict)
+    assert isinstance(result["units_of_measurement"]["weight"], dict)
 
 
 def test_reference_convertor_rejects_unknown_type():
@@ -70,7 +70,7 @@ def test_reference_convertor_rejects_unknown_type():
 
     # Action
     with pytest.raises(not_exist_exception) as exception:
-        _ = convertor.convert(42)
+        _ = convertor.convert(b"bytes")
 
     # Verification
     assert "type of object" in str(exception.value)
