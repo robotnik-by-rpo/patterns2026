@@ -1,17 +1,23 @@
 import pytest
+
+from Src.Logics.convert_factory import convert_factory
 from Src.Logics.reference_convertor import reference_convertor
 from Src.Logics.storage_manager import storage_manager
 from Src.Models.ingredient_model import ingredient_model
-from Src.Models.unit_of_measurement_model import unit_of_measurement_model
 from Src.Models.technical_map_model import technical_map_model
 from Src.Core.exception import not_exist_exception
+
+
+def _make_convertor() -> reference_convertor:
+    """reference_convertor requires a field_convertor; use factory.convert."""
+    factory = convert_factory()
+    return reference_convertor(factory.convert)
 
 
 def test_reference_convertor_converts_ingredient():
     """Check ingredient -> dict with unit nested"""
     # Preparation
-    convertor = reference_convertor()
-    g = unit_of_measurement_model.create_g()
+    convertor = _make_convertor()
     ingredient = ingredient_model.create_ingredients()[0]
 
     # Action
@@ -23,13 +29,13 @@ def test_reference_convertor_converts_ingredient():
     assert result["brutto"] == ingredient.brutto
     assert result["netto"] == ingredient.netto
     assert isinstance(result["unit"], dict)
-    assert result["unit"]["name"] == g.name
+    assert result["unit"]["name"] == "gram"
 
 
 def test_reference_convertor_converts_technical_map_with_source_key():
     """Check tech map -> dict with 'source' key (not 'sourse')"""
     # Preparation
-    convertor = reference_convertor()
+    convertor = _make_convertor()
     tech = technical_map_model.create_technical_map()
 
     # Action
@@ -46,17 +52,17 @@ def test_reference_convertor_converts_technical_map_with_source_key():
 def test_reference_convertor_converts_storage_manager():
     """Check storage_manager -> dict with warehouses as list"""
     # Preparation
-    convertor = reference_convertor()
+    convertor = _make_convertor()
     storage = storage_manager()
 
     # Action
     result = convertor.convert(storage)
 
     # Verification
-    assert "units_of_measurement" in result   
+    assert "units_of_measurement" in result
     assert "nomenclatures" in result
     assert "warehouses" in result
-    assert "groups_nomenclature" in result   
+    assert "groups_nomenclature" in result
     assert "tech_maps" in result
     assert isinstance(result["warehouses"]["A"], list)
     assert len(result["warehouses"]["A"]) > 0
@@ -66,7 +72,7 @@ def test_reference_convertor_converts_storage_manager():
 def test_reference_convertor_rejects_unknown_type():
     """Check unsupported type raises"""
     # Preparation
-    convertor = reference_convertor()
+    convertor = _make_convertor()
 
     # Action
     with pytest.raises(not_exist_exception) as exception:

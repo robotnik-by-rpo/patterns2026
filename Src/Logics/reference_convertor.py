@@ -1,125 +1,91 @@
-from Src.Core.abstract_convert import abstract_convertor
-from Src.Core.exception import not_exist_exception
-from Src.Logics.datetime_convertor import datetime_convertor
-
 import inspect
 from enum import Enum
-from datetime import datetime
-from Src.Logics.basic_convertor import basic_convertor
-from Src.Core.abc_data import unit
+from typing import Callable
 
+from Src.Core.abstract_convert import abstract_convertor
+from Src.Core.exception import not_exist_exception
 
 """
-Convertor for DIY classes in project
+Reflects public fields of an object and converts each via
+an externally provided field convertor
 """
 class reference_convertor(abstract_convertor):
-    
-    __basic: basic_convertor
-    __datetime: datetime_convertor
+    __field_convertor: Callable[[any], any]
+    __mapping_field: dict = {}
 
-    def __init__(self):
-      self.__basic = basic_convertor()
-      self.__datetime = datetime_convertor()
+    def __init__(self, field_convertor: Callable[[any], any]) -> None:
+        self.__field_convertor = field_convertor
+        self.__init_mapping()
+
+    def __init_mapping(self) -> None:
+        """Method for initing mapping"""
+        self.__mapping_field[bool] =  self.__get_field_basic_field
+        self.__mapping_field[int] = self.__get_field_basic_field
+        self.__mapping_field[float] = self.__get_field_basic_field
+        self.__mapping_field[str] = self.__get_field_basic_field
+        self.__mapping_field[dict] = self.__get_field_dict
+        self.__mapping_field[list] = self.__get_field_container
+        self.__mapping_field[tuple] = self.__get_field_container
+        self.__mapping_field[set] = self.__get_field_container
 
     def convert(self, object: any) -> dict:
-       """Public method for converting any object"""
-       return self.__convert_any(object)
-    
-    def __convert_any(self, object: any) -> any:
-        """Method for converting any object"""
-        if object is None:
-           return None
-        
-        if isinstance(object, (str, int, float, bool)):
-            return self.__basic.convert(object)
+        """convert any object from project"""
+        if not hasattr(object, "__dict__") or callable(object):
+            raise not_exist_exception(
+                "type of object",
+                f"unsupported type: {type(object).__name__}"
+            )
+        return self.__convert_object(object)
 
-        if isinstance(object, datetime):
-            return self.__datetime.convert(object)
-        
-        if isinstance(object, Enum):
-            return object.value
-        
-        if isinstance(object, (list, tuple, set)):
-            return [self.__convert_any(item) for item in object]
-        
-        if isinstance(object, dict):
-            return {key: self.__convert_any(value) for key, value in object.items()}
-        
-        if isinstance(object, unit):
-            return self.__convert_unit_type(object)
-        
-        if hasattr(object, "__dict__") and not callable(object):
-            return self.__convert_object(object)
-
-        raise not_exist_exception(
-            "type of object",
-            f"unsupported type: {type(object).__name__}"
-        )
-    
-
-    def __convert_unit_type(self, object: unit) -> dict:
-        """Convert a unit-based model into a dict of public fields"""
+    def __convert_object(self, object: any) -> dict:
+        """Method for getting fields and creating dict"""
         fields = self.__collect_fields(object)
-        result = {}
-        for name, value in fields.items():
-            result[name] = self.__convert_field(value)
-        return result
+        return {name: self.__convert_field(value) for name, value in fields.items()}
 
-    def __collect_fields(self, object: unit) -> dict:
-        """Collect public fields of object"""
-        type_object = type(object)
-        names = set()
+    def __get_field_basic_field(self, value: bool | str | int | float) -> any:
+        """Convert value base object in Python"""
+        return value
+    
+    def __get_field_container(self, value: list | tuple | set) -> list:
+        """Convert items from container"""
+        return [self.__convert_field(item) for item in value]
+    
+    def __get_field_dict(self, value: dict) -> dict:
+        """Convert items from dict"""
+        return {key: self.__convert_field(item) for key, item in value.items()}
+
+    def __convert_field(self, value: any) -> any:
+        """Method for flat conversion: scalars stay scalars, composite -> factory."""
+        if value is None:
+            return None
+        
+        if isinstance(value, Enum):
+            return value.value
+        
+        type_value = type(value)
+
+        if type_value in self.__mapping_field:
+            return self.__mapping_field[type_value](value)
+
+        return self.__field_convertor(value)
+
+    def __collect_fields(self, object: any) -> dict[str, any]:
+        """Method for collecting fields object"""
+        names: set[str] = set()
         for name in vars(object):
             if not name.startswith("_"):
                 names.add(name)
-
-        for name, member in inspect.getmembers(type_object):
+        for name, member in inspect.getmembers(type(object)):
             if isinstance(member, property) and not name.startswith("_"):
                 names.add(name)
-        
-        fields = {}
 
+        fields: dict[str, any] = {}
         for name in names:
             try:
                 value = getattr(object, name)
             except Exception:
                 continue
-
             if callable(value):
                 continue
-
             fields[name] = value
         return fields
-
-    def __convert_field(self, value: any) -> any:
-        """Convert a single field value inside a domain model"""
-        if value is None:
-            return None
-
-        if isinstance(value, (bool, str, int, float)):
-            return value
-        
-        if isinstance(value, Enum):
-            return value.value
-        
-        if isinstance(value, datetime):
-            return self.__datetime.convert(value)
-        
-        if isinstance(value, (list, tuple, set)):
-            return [self.__convert_field(item) for item in value]
-        
-        if isinstance(value, dict):
-            return {k: self.__convert_field(v) for k, v in value.items()}
-        
-        if isinstance(value, unit):
-            return self.__convert_unit_type(value)
-        
-        raise not_exist_exception(
-            "type of field",
-            f"unsupported field type: {type(value).__name__}"
-        )
-    
-    def __convert_object(self, obj: any) -> dict:
-        """Method for reflect public fields of any object (unit or not)."""
-        fields = self.__collect_fields(obj)
-        return {name: self.__convert_field(value) for name, value in fields.items()}

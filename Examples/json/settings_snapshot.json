@@ -1,16 +1,16 @@
 {
+  "id": "a69e786deaae480fa62ff29e193c7064",
   "response_format": "TXT",
-  "company": {
-    "current_account": "18291112593229111559",
-    "form_of_ownership": "ООО",
-    "bic": "124125513",
-    "name": "Ромашка",
-    "inn": "1829111559",
-    "id": "e80647581d0c404883f492cbfdb6dad1"
-  },
+  "accounter_name": "accounter",
+  "boss_name": "boss",
   "name": "",
   "is_first": true,
-  "id": "a194369fd11c4218bfe013c0c1a7c2cb",
-  "accounter_name": "accounter",
-  "boss_name": "boss"
+  "company": {
+    "bic": "124125513",
+    "current_account": "18291112593229111559",
+    "id": "2617ee65ef7749bc98e2054750a73c14",
+    "form_of_ownership": "ООО",
+    "inn": "1829111559",
+    "name": "Ромашка"
+  }
 }
