@@ -1,144 +1,140 @@
 {
-  "date_of_approval": {
-    "datetime": "2025-09-08T00:00:00",
-    "day": 8,
-    "month": 9,
-    "year": 2025,
-    "hour": 0,
-    "minute": 0,
-    "second": 0,
-    "microsecond": 0
+  "source": "M. P. Mogilny 2nd edition DeLi plus, 2016, - 888 p.",
+  "company": {
+    "inn": "1350791749",
+    "current_account": "78328490185897461647",
+    "id": "42f893515f3b4930b6553cb09522e3ef",
+    "bic": "782189947",
+    "form_of_ownership": "ООО",
+    "name": "Ромашка"
   },
-  "brutto": 347.5,
-  "id": "322ef07edf74421fbdf30408054ee9dd",
   "recipe": {
-    "brutto": 347.5,
-    "id": "702e06df0bcf4ee19e15237353d8bace",
     "lines": [
       {
+        "id": "576a180e04a444ce957a32dc1126a1ae",
+        "share": 1.0,
         "brutto": 187.5,
-        "id": "f619d958af5d429484e7cea1f55e1931",
+        "quantity": 187.5,
         "component": {
-          "brutto": 187.5,
-          "id": "77160de4b52c4e23bcdd91b119cc220a",
-          "unit": {
-            "id": "086dd59c0b574f24b14d1db941fb0cdb",
-            "common_coef": 1,
-            "coef": 1,
-            "base": null,
-            "name": "gram"
-          },
+          "id": "cf494a8c4ea0459ca7b17245bd403b21",
           "brand": "Makfa",
-          "netto": 187.5,
+          "brutto": 187.5,
+          "unit": {
+            "coef": 1,
+            "id": "48da4e50bb684a5b91e9536c79746226",
+            "base": null,
+            "name": "gram",
+            "common_coef": 1
+          },
           "waste": 0,
+          "netto": 187.5,
           "name": "flour"
         },
-        "share": 1.0,
         "netto": 187.5,
-        "quantity": 187.5,
         "name": ""
       },
       {
+        "id": "95107d664b1649ca9ea1754c06e4dd26",
+        "share": 1.0,
         "brutto": 150.0,
-        "id": "34fe133f9cca405f9f9729da12b6f242",
+        "quantity": 150.0,
         "component": {
-          "brutto": 150,
-          "id": "f29adb537ad74935b5170843e2751f51",
-          "unit": {
-            "id": "addf445ab3304846a52ad4b83fd638b1",
-            "common_coef": 1,
-            "coef": 1,
-            "base": null,
-            "name": "milliliter"
-          },
+          "id": "4799d189389841488d3b6ebd875576d4",
           "brand": "Baical",
-          "netto": 150.0,
+          "brutto": 150,
+          "unit": {
+            "coef": 1,
+            "id": "04823e9211c84339a8933bc66d5ca58e",
+            "base": null,
+            "name": "milliliter",
+            "common_coef": 1
+          },
           "waste": 0,
+          "netto": 150.0,
           "name": "water"
         },
-        "share": 1.0,
         "netto": 150.0,
-        "quantity": 150.0,
         "name": ""
       },
       {
+        "id": "abdd18eb00ec40c6af354a36b18ffa60",
+        "share": 1.0,
         "brutto": 3.0,
-        "id": "4986dddedd6841538f56eed76d74d0e9",
+        "quantity": 3.0,
         "component": {
-          "brutto": 3,
-          "id": "0141bed7dbf04fdcbd788dc367cbdf93",
-          "unit": {
-            "id": "086dd59c0b574f24b14d1db941fb0cdb",
-            "common_coef": 1,
-            "coef": 1,
-            "base": null,
-            "name": "gram"
-          },
+          "id": "538823bd33fa421db7b68f10259f50f2",
           "brand": "Saf-Levure",
-          "netto": 3.0,
+          "brutto": 3,
+          "unit": {
+            "coef": 1,
+            "id": "48da4e50bb684a5b91e9536c79746226",
+            "base": null,
+            "name": "gram",
+            "common_coef": 1
+          },
           "waste": 0,
+          "netto": 3.0,
           "name": "yeast"
         },
-        "share": 1.0,
         "netto": 3.0,
-        "quantity": 3.0,
         "name": ""
       },
       {
+        "id": "59bbeaaf844f42c28887675735929ec3",
+        "share": 1.0,
         "brutto": 3.5,
-        "id": "296b8ecaf9244979a10ef08fa96c0fa0",
+        "quantity": 3.5,
         "component": {
-          "brutto": 3.5,
-          "id": "2643aeb0bfee419a9a65466d9a91bfd2",
-          "unit": {
-            "id": "086dd59c0b574f24b14d1db941fb0cdb",
-            "common_coef": 1,
-            "coef": 1,
-            "base": null,
-            "name": "gram"
-          },
+          "id": "98af41770afa4057ac282f9bc08606be",
           "brand": "Tchaikovsky",
-          "netto": 3.5,
+          "brutto": 3.5,
+          "unit": {
+            "coef": 1,
+            "id": "48da4e50bb684a5b91e9536c79746226",
+            "base": null,
+            "name": "gram",
+            "common_coef": 1
+          },
           "waste": 0,
+          "netto": 3.5,
           "name": "salt"
         },
-        "share": 1.0,
         "netto": 3.5,
-        "quantity": 3.5,
         "name": ""
       },
       {
+        "id": "ffb7bc829432439a825a9c0a4d611a12",
+        "share": 1.0,
         "brutto": 3.5,
-        "id": "da2848e0dd244120904cc947ed19e33c",
+        "quantity": 1.0,
         "component": {
-          "brutto": 3.5,
-          "id": "2065b07a01c24cf2ba62704287eff676",
-          "unit": {
-            "id": "8650105592a949478dc2080932fa93e1",
-            "common_coef": 1000,
-            "coef": 1000,
-            "base": {
-              "id": "7c294037a9ad49fb82911d0d080b264d",
-              "common_coef": 1,
-              "coef": 1,
-              "base": null,
-              "name": "milliliter"
-            },
-            "name": "liter"
-          },
-          "brand": "package",
-          "netto": 3.5,
-          "waste": 0.0,
           "measure": 3.5,
+          "id": "021d907ce1a14b609e1d662cca626835",
+          "brand": "package",
+          "brutto": 3.5,
+          "unit": {
+            "coef": 1000,
+            "id": "fde5698f11fd46b5b40ffc800522daa7",
+            "base": {
+              "coef": 1,
+              "id": "5e4efed7710a4649badfb53e94d6a7b0",
+              "base": null,
+              "name": "milliliter",
+              "common_coef": 1
+            },
+            "name": "liter",
+            "common_coef": 1000
+          },
+          "waste": 0.0,
+          "netto": 3.5,
           "name": "paper"
         },
-        "share": 1.0,
         "netto": 3.5,
-        "quantity": 1.0,
         "name": ""
       }
     ],
-    "netto": 347.5,
+    "id": "39b64d998eaf44eb8ed6ae5986753465",
+    "brutto": 347.5,
     "instruction": [
       "Отмеряем 300 мл воды и слегка подогреваем ее в микроволновке (прям чуть теплая должна быть, не выше 40С). Высыпаем пакетик сухих дрожжей (в США расфасовка в 7 гр., поэтому округлил для удобства. В оригинале 6 гр. сухих дрожжей или 12 гр. свежих). Хорошо размешиваем дрожжи в воде и оставляем на 5 минут.",
       "В эту же миску насыпаем 375 гр. муки и 7 гр. соли. Все это очень удобно делать с кухонными весами. Надеюсь, вы ими уже давно обзавелись.",
@@ -149,49 +145,53 @@
       "Как только духовка разогрелась, ставим в самый ее низ поддон с ГОРЯЧЕЙ водой (ЭТО НЕОБХОДИМО!). Закрываем духовку на минут пять, чтобы она наполнилась паром. В это время обычными ножницами, бритвенным лезвием или острым ножом делаем косые надрезы на наших батончиках.\nСтавим форму с багетами в духовку на 25-35 минут, в зависимости от желаемой степени поджаристости корочки.",
       "Достаем форму из печи, перекладываем батоны на решетку для остывания. Оставляем их ничем не прикрывая минимум на 20 минут - багет должен дозреть."
     ],
+    "netto": 347.5,
     "name": "French baguette"
   },
-  "source": "M. P. Mogilny 2nd edition DeLi plus, 2016, - 888 p.",
-  "unit": {
-    "id": "f7fb7ccb0b8c44f8880053ad585d54df",
-    "common_coef": 1,
-    "coef": 1,
-    "base": null,
-    "name": "gram"
+  "id": "eeeea1ac6ffd4e87a95d0853a0d44e23",
+  "date_of_approval": {
+    "datetime": "2025-09-08T00:00:00",
+    "day": 8,
+    "month": 9,
+    "year": 2025,
+    "hour": 0,
+    "minute": 0,
+    "second": 0,
+    "microsecond": 0
   },
-  "brand": "tech_map",
-  "netto": 347.5,
   "general_manager": "Lavrenov O.S.",
+  "brand": "tech_map",
+  "brutto": 347.5,
+  "unit": {
+    "coef": 1,
+    "id": "e1adbc8fbb124662aba4ac195e193bec",
+    "base": null,
+    "name": "gram",
+    "common_coef": 1
+  },
   "package": {
-    "brutto": 3.5,
-    "id": "4dce041cc0ec40de86f73515d6a15f1c",
-    "unit": {
-      "id": "06b32d02c01840b5933921f2891867bb",
-      "common_coef": 1000,
-      "coef": 1000,
-      "base": {
-        "id": "b9ccf8a60810475ea9b74ede6a91a4b3",
-        "common_coef": 1,
-        "coef": 1,
-        "base": null,
-        "name": "milliliter"
-      },
-      "name": "liter"
-    },
-    "brand": "package",
-    "netto": 3.5,
-    "waste": 0.0,
     "measure": 3.5,
+    "id": "e825418f1e8148f1a09afc6af75226ae",
+    "brand": "package",
+    "brutto": 3.5,
+    "unit": {
+      "coef": 1000,
+      "id": "2ec6072c2eb14e37a991c448d948dfe9",
+      "base": {
+        "coef": 1,
+        "id": "aa0c75569d2f4af08bfc55f8e1f24be3",
+        "base": null,
+        "name": "milliliter",
+        "common_coef": 1
+      },
+      "name": "liter",
+      "common_coef": 1000
+    },
+    "waste": 0.0,
+    "netto": 3.5,
     "name": "paper"
   },
   "waste": 0.0,
-  "name": "French baguette",
-  "company": {
-    "bic": "782189947",
-    "current_account": "78328490185897461647",
-    "id": "8bc0b8ec169445f39d12f3f468bf244c",
-    "form_of_ownership": "ООО",
-    "inn": "1350791749",
-    "name": "Ромашка"
-  }
+  "netto": 347.5,
+  "name": "French baguette"
 }
