@@ -9,15 +9,30 @@ class arguments_exception(Exception):
         self.__stack_trace = str(stack_trace).strip()
         self.__field = str(field).strip()
 
+    @property
+    def field(self) -> str:
+        """Getter for field"""
+        return self.__field
+
+    @property
+    def msg(self) -> str:
+        """Getter for msg"""
+        return self.__msg
+
+    @property
+    def stack_trace(self) -> str:
+        """Getter for stack trace"""
+        return self.__stack_trace
+
     def __str__(self):
-        return f"Error: Wrong argument {self.__field}\n{self.__msg}\n{self.__stack_trace}"
+        return f"Error: Wrong argument {self.field}\n{self.msg}\n{self.stack_trace}"
     
 class operation_exception(arguments_exception):
     """class for operation errors"""
     def __str__(self):
-        return f"Error: Wrong operation {self.__field}\n{self.__msg}\n{self.__stack_trace}"
+        return f"Error: Wrong operation {self.field}\n{self.msg}\n{self.stack_trace}"
     
 class not_exist_exception(arguments_exception):
     """class for not exist erros"""
     def __str__(self):
-        return f"Error: It doesn't exist {self.__field}\n{self.__msg}\n{self.__stack_trace}"
+        return f"Error: It doesn't exist {self.field}\n{self.msg}\n{self.stack_trace}"
