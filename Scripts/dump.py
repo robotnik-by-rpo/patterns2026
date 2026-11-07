@@ -1,7 +1,7 @@
 """Generate JSON dumps for PR review.
 
 Run from project root:
-    python -m scripts.dump_json
+    python -m Scripts.Dump
 """
 import json
 import os

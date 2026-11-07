@@ -1,16 +1,18 @@
 {
-  "company": {
-    "inn": "1829111559",
-    "current_account": "18291112593229111559",
-    "id": "abff5e7cb890484a91fb95ce695d99e9",
-    "bic": "124125513",
-    "form_of_ownership": "ООО",
-    "name": "Ромашка"
-  },
-  "response_format": "TXT",
+  "__class__": "settings_model",
   "boss_name": "boss",
-  "id": "3aea23589adb4fec87e4060827cb9499",
-  "is_first": true,
+  "name": "",
   "accounter_name": "accounter",
-  "name": ""
+  "id": "93ed9b401d6746b7bfa2c7f31d2d24fc",
+  "is_first": true,
+  "response_format": "TXT",
+  "company": {
+    "__class__": "organization_model",
+    "name": "Ромашка",
+    "current_account": "18291112593229111559",
+    "bic": "124125513",
+    "id": "6529a57e7c0541239f5a18796b3b8b85",
+    "inn": "1829111559",
+    "form_of_ownership": "ООО"
+  }
 }

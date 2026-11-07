@@ -9,7 +9,7 @@ def test_basic_convertor_converts_str():
     convertor = basic_convertor()
 
     # Action
-    result = convertor.convert("hello")
+    result = convertor.serialize("hello")
 
     # Verification
     assert result == "hello"
@@ -22,8 +22,8 @@ def test_basic_convertor_converts_int_and_float():
     convertor = basic_convertor()
 
     # Action
-    as_int = convertor.convert(42)
-    as_float = convertor.convert(3.14)
+    as_int = convertor.serialize(42)
+    as_float = convertor.serialize(3.14)
 
     # Verification
     assert as_int == 42
@@ -38,8 +38,8 @@ def test_basic_convertor_converts_bool():
     convertor = basic_convertor()
 
     # Action
-    as_true = convertor.convert(True)
-    as_false = convertor.convert(False)
+    as_true = convertor.serialize(True)
+    as_false = convertor.serialize(False)
 
     # Verification
     assert as_true is True
@@ -53,7 +53,7 @@ def test_basic_convertor_rejects_unknown_type():
 
     # Action
     with pytest.raises(not_exist_exception) as exception:
-        _ = convertor.convert([1, 2, 3])
+        _ = convertor.serialize([1, 2, 3])
 
     # Verification
     assert "type of object" in str(exception.value)
