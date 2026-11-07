@@ -1,0 +1,16 @@
+{
+  "company": {
+    "inn": "1829111559",
+    "current_account": "18291112593229111559",
+    "id": "abff5e7cb890484a91fb95ce695d99e9",
+    "bic": "124125513",
+    "form_of_ownership": "ООО",
+    "name": "Ромашка"
+  },
+  "response_format": "TXT",
+  "boss_name": "boss",
+  "id": "3aea23589adb4fec87e4060827cb9499",
+  "is_first": true,
+  "accounter_name": "accounter",
+  "name": ""
+}

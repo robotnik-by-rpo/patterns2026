@@ -1,12 +1,14 @@
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
 from Src.Core.product import product
+from Src.Core.abc_data import unit
 
 
-class recipe_line_model:
+class recipe_line_model(unit):
     """Line of recipe - component + quantity + share"""
 
     def __init__(self, component: product, quantity: float, share: float = 1.0):
+        super().__init__()
         self.component = component
         self.quantity = quantity
         self.share = share
