@@ -2,13 +2,11 @@ import inspect
 from Src.Core.abstract_convert import abstract_convertor
 from Src.Core.exception import not_exist_exception
 from Src.Logics.classes_registry import classes_registry
+
 """
 Class for collecting fields of non-basic and non-datetime objects
 """
 class reference_convertor(abstract_convertor):
-    __SKIP_FIELDS: set[str] = {"__class__", "common_coef"}
-    __PRIORITY_FIELDS: set[str] = {"brutto", "waste"}
-
     def serialize(self, obj: any) -> dict:
         """Method for checking type object and returning fields"""
         if not hasattr(obj, "__dict__") or callable(obj):
@@ -42,9 +40,10 @@ class reference_convertor(abstract_convertor):
         if cls is None:
             raise not_exist_exception("__class__", f"undefine class {type_name}")
 
-        fields = {k: v for k, v in data.items() if k not in self.__SKIP_FIELDS}
 
         instance = cls.__new__(cls)
+        fields = {k: v for k, v in data.items() if k != "__class__"}
+
         self.__assign(instance, fields)
         return instance
 
@@ -58,12 +57,7 @@ class reference_convertor(abstract_convertor):
             if name.startswith(prefix)
         }
 
-        ordered_keys = [k for k in reference_convertor.__PRIORITY_FIELDS if k in data]
-        ordered_keys += [k for k in data if k not in ordered_keys]
-
-        for key in ordered_keys:
-            value = data[key]
-
+        for key, value  in data.items():
             prop = getattr(type(obj), key, None)
             if isinstance(getattr(type(obj), key, None), property):
                 if prop.fset is not None:

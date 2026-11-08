@@ -73,7 +73,7 @@ class storage_manager(abstract_manager):
 
     @groups_nomenclature.setter
     def groups_nomenclature(self, 
-                            new_groups_nomenclatures: list[group_nomenclature_model]) -> None:
+                            new_groups_nomenclatures: dict[str,group_nomenclature_model]) -> None:
         """It's setter for groups of nomenclature"""
         self.__groups = validate.validated_null_empty_obj(new_groups_nomenclatures,
                                                           "new groups nomenclatures",
