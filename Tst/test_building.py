@@ -5,123 +5,173 @@ import pytest
 
 def test_building_name_initing():
     """Check name on the same value after initing"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     b1 = building_model("Ресторан",150,u_o_m2,"г. Москва ул. Колотушкина")
 
+    # Action
+
+    # verification
     assert b1.name == "Ресторан"
 
 def test_building_square_initing():
     """Check square on the same value after initing"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     b1 = building_model("Ресторан",150,u_o_m2,"г. Москва ул. Колотушкина")
 
+    # Action
+
+    # verification
     assert b1.square == 150
     
 def test_building_base_unit_initing():
     """Check base unit of measurement on the same value after initing"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     b1 = building_model("Ресторан",150,u_o_m2,"г. Москва ул. Колотушкина")
 
+    # Action
+
+    # verification
     assert b1.base_unit == u_o_m2
 
 def test_building_address_initing():
     """Check address on the same value after initing"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     b1 = building_model("Ресторан",150,u_o_m2,"г. Москва ул. Колотушкина")
 
+    # Action
+
+    # verification
     assert b1.address == "г. Москва ул. Колотушкина"
 
 def test_building_zero_square():
     """Check square on zero value"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     
+    # Action
     with pytest.raises(arguments_exception) as exception:
         _ = building_model("Ресторан",0,u_o_m2,"г. Москва ул. Колотушкина")
 
+    # verification
     assert "Wrong argument" in str(exception.value)
     assert "square" in str(exception.value)
 
 def test_building_negative_square():
     """Check square on negative value"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     
+    # Action
     with pytest.raises(arguments_exception) as exception:
         _ = building_model("Ресторан",-150,u_o_m2,"г. Москва ул. Колотушкина")
 
+    # verification
     assert "Wrong argument" in str(exception.value)
     assert "square" in str(exception.value)
 
 
 def test_building_empty_address():
     """Check address on empty string"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     
+    # Action
     with pytest.raises(arguments_exception) as exception:
         _ = building_model("Ресторан",150,u_o_m2,"")
 
+    # verification
     assert "Wrong argument" in str(exception.value)
     assert "address" in str(exception.value)
 
 def test_building_null_base_unit():
+    """Check None value arg base_unit"""
+    # Preparation
+
+    # Action
     with pytest.raises(arguments_exception) as exception:
         _ = building_model("Ресторан",150,None,"г. Москва ул. Колотушкина")
 
+    # verification
     assert "Wrong argument" in str(exception.value)
     assert "unit" in str(exception.value)
 
 def test_building_setter_square():
     """Check setter of square on the same value after setting"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     b1 = building_model("Ресторан",150,u_o_m2,"г. Москва ул. Колотушкина")
+
+    # Action
     b1.square = 156
 
+    # verification
     assert b1.square == 156
 
 def test_building_setter_base_unit():
     """Check setter of base unit on the same value after setting"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     b1 = building_model("Ресторан",150,u_o_m2,"г. Москва ул. Колотушкина")
     u_o_m3 = unit_of_measurement_model("км",1e-10,u_o_m)
+
+    # Action
     b1.base_unit = u_o_m3
 
+    # verification
     assert b1.base_unit == u_o_m3
 
 def test_building_setter_address():
     """Check setter of address on the same value after setting"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
     b1 = building_model("Ресторан",150,u_o_m2,"г. Москва ул. Колотушкина")
+
+    # Action
     b1.address = "г.Иркутск"
 
+    # verification
     assert b1.address == "г.Иркутск"
 
 def test_building_null_address():
     """Check address on the null value"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
+
+    # Action
     with pytest.raises(arguments_exception) as exception:
         _ = building_model("Ресторан",150,u_o_m2,None)
     
+    # verification
     assert "Wrong argument" in str(exception.value)
     assert "address" in str(exception.value)
 
 
 def test_building_null_name():
     """Check name on the null value"""
+    # Preparation
     u_o_m = unit_of_measurement_model("см",1)
     u_o_m2 = unit_of_measurement_model("м",10000,u_o_m)
+
+    # Action
     with pytest.raises(arguments_exception) as exception:
         _ = building_model(None,150,u_o_m2,"г. Москва ул. Колотушкина")
     
+    # verification
     assert "Wrong argument" in str(exception.value)
     assert "name" in str(exception.value)
 
