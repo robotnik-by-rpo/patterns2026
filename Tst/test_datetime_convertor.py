@@ -9,7 +9,7 @@ def test_datetime_convertor_converts_datetime():
     value = datetime(2025, 9, 8, 14, 30, 15)
 
     # Action
-    result = convertor.convert(value)
+    result = convertor.serialize(value)
 
     # Verification
     assert result["datetime"] == value.isoformat()
@@ -28,7 +28,7 @@ def test_datetime_convertor_rejects_not_datetime():
 
     # Action
     with pytest.raises(Exception) as exception:
-        _ = convertor.convert("2025-09-08")
+        _ = convertor.serialize("2025-09-08")
 
     # Verification
     assert "datetime" in str(exception.value) or "type" in str(exception.value)

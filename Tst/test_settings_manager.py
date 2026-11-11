@@ -3,8 +3,10 @@ from Src.Core.exception import operation_exception
 
 def test_not_raise_settings_manager_load():
     """Check loading file"""
-    #Preparing
+    # Preparation
     manager  = setting_manager()
+
+    # Action
     try:
         manager.load()
         assert True
@@ -12,12 +14,17 @@ def test_not_raise_settings_manager_load():
         assert False
     except:
         assert False
+
+    # verification
+    
 
 
 def test_not_none_settings_manager_load():
     """Check settings aren't None"""
-    #Preparing
+    # Preparation
     manager  = setting_manager()
+
+    # Action
     try:
         manager.load()
         assert True
@@ -26,42 +33,62 @@ def test_not_none_settings_manager_load():
     except:
         assert False
 
+
+    # verification
     assert manager.settings is not None
 
 
 def test_equals_settings_manager_create():
     """Check equals between objects"""
+    # Preparation
     instance1 = setting_manager()
     instance2 = setting_manager()
 
+    # Action
+
+
+    # verification
     assert instance1 == instance2 
 
 def test_is_loaded_settings_manager_true():
     """Check flag is_loaded after uploading file"""
+    # Preparation
     manager = setting_manager()
+
+    # Action
     try:
         manager.load()
     except:
         assert False
 
+    # verification
     assert manager.is_loaded
 
 def test_settings_manager_settings_filled_after_load():
     """Check settings are filled with data after uploading file"""
+    # Preparation
     manager = setting_manager()
+        
+    # Action
     try:
         manager.load()
     except operation_exception:
         assert False
 
+    # verification
     assert manager.settings.company is not None
     assert manager.settings.boss_name != ""
     assert manager.settings.accounter_name != ""
 
 def test_settings_manager_equals_json():
     """Check equals between attributes and key value from json file"""
+    # Preparation
     manager = setting_manager()
+    
+    # Action
     manager.load()
+
+    # verification
     assert manager.settings.boss_name == "boss"
     assert manager.settings.accounter_name == "accounter"
     assert manager.settings.company.inn == "1829111559"
