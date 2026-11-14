@@ -46,6 +46,12 @@ class storage_manager(abstract_manager):
         self.__tech_maps = data_settings["tech_maps"]
 
 
+    def reset(self) -> None:
+        """Method for reset data in storage manager"""
+        self.__is_first = True
+        self.__is_first = self.convert()
+
+
     def find_nomenclature(self, code: str) -> nomenclature_model:
         for items in self.__nomenclatures.values():
             for nom in items.values():

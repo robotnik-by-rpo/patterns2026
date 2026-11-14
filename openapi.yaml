@@ -1,0 +1,347 @@
+openapi: 3.0.3
+info:
+  title: Recipe API
+  description: API для управления доменами (storage_manager) и генерации отчётов
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Локальный сервер разработки
+
+tags:
+  - name: domain
+    description: Операции с доменами / хранилищем
+  - name: extensions
+    description: Формирование отчётов
+
+paths:
+  /api/domain/storage_manager:
+    get:
+      tags: [domain]
+      summary: Получить все домены из storage_manager
+      operationId: getStorageManager
+      responses:
+        '200':
+          description: Успешный ответ со списком доменов
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+  /api/domain/{domain_id}:
+    get:
+      tags: [domain]
+      summary: Получить домен по идентификатору
+      operationId: getDomain
+      parameters:
+        - $ref: '#/components/parameters/DomainId'
+      responses:
+        '200':
+          description: Найденный домен
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '404':
+          description: Домен не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+    put:
+      tags: [domain]
+      summary: Полностью обновить домен (PUT)
+      operationId: putDomain
+      parameters:
+        - $ref: '#/components/parameters/DomainId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Обновлённый домен
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Некорректные аргументы / операция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '404':
+          description: Домен не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+    patch:
+      tags: [domain]
+      summary: Частично обновить домен (PATCH)
+      operationId: patchDomain
+      parameters:
+        - $ref: '#/components/parameters/DomainId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Обновлённый домен
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Некорректные аргументы / операция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '404':
+          description: Домен не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+    delete:
+      tags: [domain]
+      summary: Удалить домен
+      operationId: deleteDomain
+      parameters:
+        - $ref: '#/components/parameters/DomainId'
+        - name: force
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Принудительное удаление
+      responses:
+        '204':
+          description: Удалено успешно (без тела ответа)
+        '400':
+          description: Некорректные аргументы
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '404':
+          description: Домен не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '409':
+          description: Конфликт (операция невозможна)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+  /api/domain:
+    post:
+      tags: [domain]
+      summary: Создать новый домен
+      operationId: postDomain
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          description: Домен создан
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '400':
+          description: Некорректные аргументы / операция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+  /api/exstensions/get:
+    get:
+      tags: [extensions]
+      summary: Получить список доступных форматов отчётов
+      operationId: getExtensions
+      responses:
+        '200':
+          description: Список расширений
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  extensions:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Некорректные аргументы
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+  /api/exstensions/get_report:
+    get:
+      tags: [extensions]
+      summary: Сформировать отчёт в указанном формате
+      operationId: getReport
+      parameters:
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+            default: TXT
+          description: Формат отчёта (TXT, CSV, JSON, MARKDOWN, RTF, XLSX, DOCX, PDF ...)
+        - name: entity_type
+          in: query
+          required: false
+          schema:
+            type: string
+            default: recipe
+          description: Тип сущности
+        - name: code
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ''
+          description: Код/идентификатор сущности
+      responses:
+        '200':
+          description: Отчёт (текстовый или бинарный в зависимости от формата)
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Некорректные аргументы / сущность не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+  /api/exstensions/get_default_report:
+    get:
+      tags: [extensions]
+      summary: Сформировать отчёт в формате по умолчанию (из settings.json)
+      operationId: getDefaultReport
+      parameters:
+        - name: entity_type
+          in: query
+          required: false
+          schema:
+            type: string
+            default: recipe
+        - name: code
+          in: query
+          required: false
+          schema:
+            type: string
+            default: ''
+      responses:
+        '200':
+          description: Отчёт в формате по умолчанию
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Некорректные аргументы / сущность не найдена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+components:
+  parameters:
+    DomainId:
+      name: domain_id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Идентификатор домена
+
+  schemas:
+    HTTPError:
+      type: object
+      properties:
+        detail:
+          type: string
+          description: Описание ошибки
+      example:
+        detail: "Not found"

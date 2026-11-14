@@ -28,15 +28,27 @@ class settings_storage_factory:
     @staticmethod
     def __create_units() -> dict[str,dict[str,unit_of_measurement_model]]:
         """Factory method for creating base units"""
-        return {"weight":{'gram': unit_of_measurement_model.create_g(),
-                          'kilogram': unit_of_measurement_model.create_kg(),
-                          'ton': unit_of_measurement_model.create_ton()},
-                "volume":{'milliliter': unit_of_measurement_model.create_ml(),
-                          'liter': unit_of_measurement_model.create_l(),
-                          'cubic meter': unit_of_measurement_model.create_m3()},
-                "square":{'square millimete': unit_of_measurement_model.create_mm2(),
-                           'square centimeter': unit_of_measurement_model.create_sm2(),
-                           'square meter': unit_of_measurement_model.create_m2()}}
+        g = unit_of_measurement_model.create_g()
+        kg = unit_of_measurement_model("kilogram", 1000, g)
+        ton = unit_of_measurement_model("ton", 1000, kg)
+
+        ml = unit_of_measurement_model("milliliter",1)
+        l  = unit_of_measurement_model("liter", 1000, ml)
+        m3 = unit_of_measurement_model("cubic meter", 1000, l)
+
+        mm2 = unit_of_measurement_model("square millimeter", 1)
+        c2 = unit_of_measurement_model("square centimeter",100, mm2)
+        m2 = unit_of_measurement_model("square meter",10000, c2)
+
+        return {"weight":{'gram': g,
+                          'kilogram': kg,
+                          'ton': ton},
+                "volume":{'milliliter': ml,
+                          'liter': l,
+                          'cubic meter': m3},
+                "square":{'square millimeter': mm2,
+                           'square centimeter': c2,
+                           'square meter': m2}}
     @staticmethod
     def __create_groups() -> dict[str, group_nomenclature_model]:
         """Factory method for creating base organization"""
