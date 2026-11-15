@@ -4,13 +4,13 @@ from Src.Core.abstract_router import abstract_router
 from Src.Logics.storage_manager import storage_manager
 from Src.Logics.convert_factory import convert_factory
 from fastapi.responses import JSONResponse
-from Src.Logics.domain_restapi_factory import domain_restapi_factory
+from Src.Logics.domain_restapi import domain_restapi
 import json
 
 class domain_router(abstract_router):
 
     __convert_factory: convert_factory = convert_factory()
-    __domain_api_factory: domain_restapi_factory = domain_restapi_factory()
+    __domain_restapi: domain_restapi = domain_restapi()
 
     def __new__(cls):
         """Singletone"""
@@ -45,7 +45,7 @@ class domain_router(abstract_router):
         """Adding new domain"""
         try:
             obj = self.__convert_factory.deserialize(data)
-            self.__domain_api_factory.create(obj)
+            self.__domain_restapi.create(obj)
             raw = self.__convert_factory.serialize(obj)
             return JSONResponse(content=raw, status_code=201)
         except (arguments_exception, operation_exception, not_exist_exception) as ex:
@@ -58,7 +58,7 @@ class domain_router(abstract_router):
         try:
             data = await request.json()
             new_obj = self.__convert_factory.deserialize(data)
-            updated = self.__domain_api_factory.update(domain_id, new_obj)
+            updated = self.__domain_restapi.update(domain_id, new_obj)
             raw = self.__convert_factory.serialize(updated)
             return JSONResponse(content=raw, status_code=200)
         except not_exist_exception as ex:
@@ -71,7 +71,7 @@ class domain_router(abstract_router):
     async def delete_domain(self, domain_id: str, force: bool = False):
         """Deleting a domain"""
         try:
-            self.__domain_api_factory.delete(domain_id, force)
+            self.__domain_restapi.delete(domain_id, force)
             return Response(status_code=204)
         except not_exist_exception as ex:
             raise HTTPException(status_code=404, detail=str(ex))
@@ -86,14 +86,14 @@ class domain_router(abstract_router):
         """Patching a domain"""
         try:
             data = await request.json()
-            current = self.__domain_api_factory.read(domain_id)
+            current = self.__domain_restapi.read(domain_id)
             current_raw = self.__convert_factory.serialize(current)
             if not isinstance(data, dict) or not isinstance(current_raw, dict):
                 raise arguments_exception("body", "patch body must be a JSON object")
 
             merged = {**current_raw, **data}
             new_obj = self.__convert_factory.deserialize(merged)
-            updated = self.__domain_api_factory.update(domain_id, new_obj)
+            updated = self.__domain_restapi.update(domain_id, new_obj)
             raw = self.__convert_factory.serialize(updated)
             return JSONResponse(content=raw, status_code=200)
         except not_exist_exception as ex:
@@ -106,7 +106,7 @@ class domain_router(abstract_router):
     async def get_domain(self, domain_id: str):
         """Getting a domain"""
         try:
-            obj = self.__domain_api_factory.read(domain_id)
+            obj = self.__domain_restapi.read(domain_id)
             raw = self.__convert_factory.serialize(obj)
             return JSONResponse(content=raw, status_code=200)
         except not_exist_exception as ex:
