@@ -4,11 +4,10 @@ from Src.Models.organization_model import organization_model
 from Src.Models.unit_of_measurement_model import unit_of_measurement_model
 from Src.Models.warehouse_model import warehouse_model
 from Src.Models.technical_map_model import technical_map_model
+from Src.Models.transaction_model import transaction_model
+import datetime
 
 class initial_domain:
-    from Src.Logics.storage_manager import storage_manager
-    __storage: storage_manager = storage_manager()
-
     def __new__(cls):
         if not hasattr(cls, '_initial_domain__instance'):
             cls.__instance = super().__new__(cls)
@@ -16,12 +15,16 @@ class initial_domain:
     
     def init_domain_into_storage(self) -> None:
         """Initing domains into storage"""
+        from Src.Logics.storage_manager import storage_manager
+        
+        self.__storage: storage_manager = storage_manager()
         self.__init_units()        
         self.__init_groups()        
         self.__init_company() 
         self.__init_nomenclatures()
         self.__init_warehouses()
         self.__init_tech_map()
+        self.__init_transactions()
     
 
     def __init_tech_map(self) -> None:
@@ -86,4 +89,21 @@ class initial_domain:
                 "square": {mm2.name: mm2, c2.name: c2, m2.name: m2}
             }
 
-       
+    def __init_transactions(self) -> None:
+        """Method for creating transactions"""
+        storage = self.__storage
+        kg = storage.units_of_measurement["weight"]["kilogram"]
+        
+        flour = storage.nomenclatures["ingredients"]["flour"]
+        salt = storage.nomenclatures["ingredients"]["salt"]
+        
+        transactions = [
+            transaction_model("Приход муки", flour, kg, 100.0, datetime.datetime(2025, 1, 1)),
+            transaction_model("Приход муки", flour, kg, 50.0, datetime.datetime(2025, 2, 1)),
+            transaction_model("Расход муки", flour, kg, -30.0, datetime.datetime(2025, 3, 1)),
+            transaction_model("Приход соли", salt, kg, 10.0, datetime.datetime(2025, 1, 1)),
+            transaction_model("Расход соли", salt, kg, -5.0, datetime.datetime(2025, 2, 1)),
+        ]
+        
+        for t in transactions:
+            storage.transactions[t.id] = t

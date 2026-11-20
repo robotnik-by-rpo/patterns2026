@@ -6,11 +6,16 @@ from Src.Logics.convert_factory import convert_factory
 from fastapi.responses import JSONResponse
 from Src.Logics.domain_restapi import domain_restapi
 import json
+from Src.Logics.factory_domain_type import factory_domain_type
+from Src.Logics.prototype import prototype
+from Src.Logics.osv_prototype import osv_report_prototype
+from Src.Dtos.filter_dto import filter_dto
 
 class domain_router(abstract_router):
 
     __convert_factory: convert_factory = convert_factory()
     __domain_restapi: domain_restapi = domain_restapi()
+    __domain_type_factory: factory_domain_type = factory_domain_type()
 
     def __new__(cls):
         """Singletone"""
@@ -29,6 +34,51 @@ class domain_router(abstract_router):
         self.router.add_api_route("/{domain_id}", self.put_domain, methods=["PUT"])
         self.router.add_api_route("/{domain_id}", self.delete_domain, methods=["DELETE"])
         self.router.add_api_route("/{domain_id}", self.patch_domain, methods=["PATCH"])
+        self.router.add_api_route("/filter/{domain_type}", self.filter_domain, methods=["POST"])
+        self.router.add_api_route("/osv/{domain_type}", self.post_osv, methods=["POST"])
+
+    async def filter_domain(self, domain_type: str, request: Request) -> None:
+        """Filter dto domains throught filter"""
+        try:
+            data = await request.json()
+            filter: filter_dto = self.__get_filter(data)
+            items = self.__get_items_domain(domain_type)
+            proto = prototype(items)
+            filtered = proto.clone(filter).data
+            raw = self.__convert_factory.serialize(filtered)
+
+            return JSONResponse(content=raw, status_code=200)
+        except Exception as ex:
+            raise HTTPException(status_code=500, detail=str(ex))
+
+    async def post_osv(self, domain_type: str, request: Request) -> None:
+        """Filter dto domains throught filter and return osv"""
+        try:
+            data = await request.json()
+            filter: filter_dto = self.__get_filter(data)
+            items =  self.__get_items_domain(domain_type)
+    
+            osv = osv_report_prototype()
+            result = osv.process(items, filter)
+
+            return JSONResponse(content=result, status_code=200)
+        except Exception as ex:
+            raise HTTPException(status_code=400, detail=str(ex))
+
+    def __get_items_domain(self, domain_type: str) -> list[any]:
+        """Method for getting items domain from storage manager"""
+        if domain_type in self.__domain_type_factory:
+            return self.__domain_type_factory.convert(domain_type)
+    
+        raise HTTPException(status_code=400, detail="Unknown domain type")
+        
+
+    def __get_filter(self, data: dict) -> filter_dto:
+        """Method for getting filter dto"""
+        for item in data.get("filters", []):
+                if isinstance(item, dict) and "__class__" not in item:
+                    item["__class__"] = "filter_item_dto"
+        return self.__convert_factory.deserialize({"__class__": "filter_dto", **data})
 
     def get_storage_manager(self):
         """Getting all domain from storage manager"""
