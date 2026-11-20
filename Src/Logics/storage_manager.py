@@ -6,8 +6,7 @@ from Src.Models.warehouse_model import warehouse_model
 from Src.Core.abstract_manager import abstract_manager
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
-from Src.Factories.settings_storage_factory import base_data_setting_storage
-from Src.Factories.settings_storage_factory import settings_storage_factory
+
 from Src.Models.technical_map_model import technical_map_model
 from Src.Core.exception import not_exist_exception
 
@@ -33,17 +32,20 @@ class storage_manager(abstract_manager):
     def convert(self) -> bool:
         """Check, if data create at first so they will creat base data"""
         if self.__is_first: 
-            self.__create_data(settings_storage_factory.create_all())
+            from Src.Logics.init_domain_storage import initial_domain
+            initial_domain().init_domain_into_storage()
         return False
-    
-    def __create_data(self, data_settings: base_data_setting_storage) -> None:
-        """Creating a base data"""
-        self.__units = data_settings["units"]
-        self.__groups = data_settings["groups"]
-        self.__company = data_settings["company"]
-        self.__nomenclatures = data_settings["nomenclatures"]
-        self.__warehouses = data_settings["warehouses"]
-        self.__tech_maps = data_settings["tech_maps"]
+
+    def reset(self) -> None:
+        """Method for reset data in storage manager"""
+        self.__is_first = True
+        self.__units = {}
+        self.__nomenclatures = {}
+        self.__company = None
+        self.__warehouses = {}
+        self.__groups = {}
+        self.__tech_maps = {}
+        self.__is_first = self.convert()
 
 
     def find_nomenclature(self, code: str) -> nomenclature_model:
@@ -143,4 +145,7 @@ class storage_manager(abstract_manager):
     @units_of_measurement.setter
     def units_of_measurement(self, new_units):
         """It's setter for unit of measurement"""
-        self.__units = validate.validated_null_value(new_units)
+        self.__units = validate.validated_null_value(new_units, 
+                                                     "new units",
+                                                     "new units must be not None value",
+                                                     arguments_exception)
