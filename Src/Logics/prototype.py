@@ -2,15 +2,18 @@ from Src.Dtos.filter_dto import filter_dto
 from Src.Dtos.filter_dto import filter_item_dto
 from Src.Dtos.filter_type_dto import filter_type_enum
 from Src.Core.abstract_prototype import abstract_prototype
+from Src.Logics.factory_filters import filter_factory
 
 """
 Class for cloning a list of domain objects using a filter
 """
 class prototype(abstract_prototype):
 
+    __filter_factory: filter_factory = None
+
     def __init__(self, data: list):
-        super().__init__()
-        self.data = data
+        super().__init__(data)
+        self.__filter_factory = filter_factory()
 
     def clone(self, filter_dto: filter_dto = None) -> "prototype":
         """Method for cloning with filter"""
@@ -36,16 +39,11 @@ class prototype(abstract_prototype):
         value = self._get_linked_value(item, f.field_name)
         if value is None:
             return False
-
         str_value = str(value).lower()
         filter_value = str(f.value).lower()
 
-        if f.filter_type == filter_type_enum.EQUALS:
-            return str_value == filter_value
-        elif f.filter_type == filter_type_enum.LIKE:
-            return filter_value in str_value
-
-        return False
+        filter = self.__filter_factory.create(f.filter_type)
+        return filter.match(str_value, filter_value)
 
     def _get_linked_value(self, obj: any, field_path:   str) -> any:
         """Method for checking recursive value by path"""

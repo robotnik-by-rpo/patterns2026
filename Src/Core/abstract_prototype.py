@@ -6,6 +6,9 @@ Abstract class for prototypes
 class abstract_prototype(ABC):
     __data: list = []
     
+    def __init__(self, data: list | None = None):
+        self.__data = list(data) if data is not None else []
+
     @abstractmethod
     def clone(self, filter_dto: filter_dto = None) -> "abstract_prototype":
         ...
@@ -14,8 +17,3 @@ class abstract_prototype(ABC):
     def data(self) -> list:
         """Getter for data"""
         return self.__data
-    
-    @data.setter
-    def data(self, new_data: list) -> None:
-        """Setter for data"""
-        self.__data = new_data

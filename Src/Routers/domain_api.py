@@ -8,7 +8,7 @@ from Src.Logics.domain_restapi import domain_restapi
 import json
 from Src.Logics.factory_domain_type import factory_domain_type
 from Src.Logics.prototype import prototype
-from Src.Logics.osv_prototype import osv_report_prototype
+from Src.Logics.osv_service import osv_service
 from Src.Dtos.filter_dto import filter_dto
 
 class domain_router(abstract_router):
@@ -16,6 +16,7 @@ class domain_router(abstract_router):
     __convert_factory: convert_factory = convert_factory()
     __domain_restapi: domain_restapi = domain_restapi()
     __domain_type_factory: factory_domain_type = factory_domain_type()
+    __osv_service: osv_service = osv_service()
 
     def __new__(cls):
         """Singletone"""
@@ -43,8 +44,8 @@ class domain_router(abstract_router):
             data = await request.json()
             filter: filter_dto = self.__get_filter(data)
             items = self.__get_items_domain(domain_type)
-            proto = prototype(items)
-            filtered = proto.clone(filter).data
+            proto = self.__get_proto(items, filter)
+            filtered = proto.data
             raw = self.__convert_factory.serialize(filtered)
 
             return JSONResponse(content=raw, status_code=200)
@@ -57,9 +58,10 @@ class domain_router(abstract_router):
             data = await request.json()
             filter: filter_dto = self.__get_filter(data)
             items =  self.__get_items_domain(domain_type)
-    
-            osv = osv_report_prototype()
-            result = osv.process(items, filter)
+            proto = self.__get_proto(items, filter)
+
+            report = self.__osv_service.build(proto)
+            result = self.__convert_factory.serialize(report.rows)
 
             return JSONResponse(content=result, status_code=200)
         except Exception as ex:
@@ -71,6 +73,10 @@ class domain_router(abstract_router):
             return self.__domain_type_factory.convert(domain_type)
     
         raise HTTPException(status_code=400, detail="Unknown domain type")
+    
+    def __get_proto(self, items: list[any], filter: filter_dto) -> prototype:
+        """Method for getting prototype"""
+        return prototype(items).clone(filter)
         
 
     def __get_filter(self, data: dict) -> filter_dto:
