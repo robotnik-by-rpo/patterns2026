@@ -217,6 +217,105 @@ paths:
               schema:
                 $ref: '#/components/schemas/HTTPError'
 
+  /api/domain/filter/{domain_type}:
+    post:
+      tags: [domain]
+      summary: Фильтрация доменных сущностей
+      description: |
+        Фильтрует объекты указанного типа домена по набору условий.
+        Поддерживаются операторы EQUALS и LIKE, в том числе вложенные поля
+        (например, base_unit.name).
+      operationId: filterDomain
+      parameters:
+        - $ref: '#/components/parameters/DomainType'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterDto'
+            examples:
+              by_name_like:
+                summary: LIKE по имени
+                value:
+                  filters:
+                    - field_name: name
+                      filter_type: LIKE
+                      value: flour
+              nested_equals:
+                summary: EQUALS по вложенному полю
+                value:
+                  filters:
+                    - field_name: base_unit.name
+                      filter_type: EQUALS
+                      value: kilogram
+      responses:
+        '200':
+          description: Список отфильтрованных объектов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '400':
+          description: Неизвестный тип домена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
+  /api/domain/osv/{domain_type}:
+    post:
+      tags: [domain]
+      summary: Оборотно-сальдовая ведомость (ОСВ) по типу домена
+      description: |
+        Формирует ОСВ по объектам указанного типа домена.
+        Опционально применяется тот же фильтр, что и в /filter/{domain_type}.
+        Для каждой записи возвращаются opening_balance, income, expense, closing_balance.
+      operationId: postOsv
+      parameters:
+        - $ref: '#/components/parameters/DomainType'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterDto'
+            examples:
+              with_filter:
+                summary: ОСВ с фильтром по имени
+                value:
+                  filters:
+                    - field_name: name
+                      filter_type: LIKE
+                      value: flour
+              without_filter:
+                summary: ОСВ по всем объектам типа
+                value: {}
+      responses:
+        '200':
+          description: Строки оборотно-сальдовой ведомости
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OsvReportItem'
+        '400':
+          description: Неизвестный тип домена или ошибка обработки
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPError'
+
   /api/exstensions/get:
     get:
       tags: [extensions]
@@ -336,6 +435,26 @@ components:
         type: string
       description: Идентификатор домена
 
+    DomainType:
+      name: domain_type
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+          - nomenclature_model
+          - group_nomenclature_model
+          - unit_of_measurement_model
+          - technical_map_model
+          - transaction_model
+      description: |
+        Тип доменной сущности:
+        - nomenclature_model
+        - group_nomenclature_model
+        - unit_of_measurement_model
+        - technical_map_model
+        - transaction_model
+
   schemas:
     HTTPError:
       type: object
@@ -345,3 +464,75 @@ components:
           description: Описание ошибки
       example:
         detail: "Not found"
+
+    FilterItemDto:
+      type: object
+      required:
+        - field_name
+        - filter_type
+        - value
+      properties:
+        field_name:
+          type: string
+          description: Имя поля или путь с точками (например, base_unit.name)
+          example: name
+        filter_type:
+          type: string
+          enum: [EQUALS, LIKE]
+          description: Тип сравнения
+          example: LIKE
+        value:
+          type: string
+          description: Значение для сравнения
+          example: flour
+
+    FilterDto:
+      type: object
+      properties:
+        filters:
+          type: array
+          description: Список условий фильтрации (логика AND)
+          items:
+            $ref: '#/components/schemas/FilterItemDto'
+          default: []
+      example:
+        filters:
+          - field_name: name
+            filter_type: LIKE
+            value: flour
+
+    OsvReportItem:
+      type: object
+      required:
+        - id
+        - name
+        - opening_balance
+        - income
+        - expense
+        - closing_balance
+      properties:
+        id:
+          type: string
+          description: Идентификатор объекта
+        name:
+          type: string
+          description: Наименование объекта
+        opening_balance:
+          type: number
+          description: Остаток на начало
+        income:
+          type: number
+          description: Приход
+        expense:
+          type: number
+          description: Расход
+        closing_balance:
+          type: number
+          description: Остаток на конец (opening_balance + income - expense)
+      example:
+        id: "7f0895eb950e435fba5822e17bca024a"
+        name: flour
+        opening_balance: 42
+        income: 84
+        expense: 26
+        closing_balance: 100
