@@ -85,13 +85,15 @@ def test_osv_report_by_nomenclature_success():
     # Preparation
     storage_manager().reset()
     payload = {
+        "start_date": "2025-01-01",
+        "end_date": "2025-12-31",
         "filters": [
             {
                 "field_name": "name",
                 "filter_type": "LIKE",
-                "value": "flour"
+                "value": "flour",
             }
-        ]
+        ],
     }
 
     # Action
@@ -118,9 +120,13 @@ def test_osv_report_all_items_without_filter():
     """Check OSV report generation without filter returns all objects"""
     # Preparation
     storage_manager().reset()
-    
+    payload = {
+        "start_date": "2025-01-01",
+        "end_date": "2025-12-31",
+    }
+
     # Action
-    response = client.post("/api/domain/osv/group_nomenclature_model", json={})
+    response = client.post("/api/domain/osv/group_nomenclature_model", json=payload)
 
     # Verification
     assert response.status_code == 200

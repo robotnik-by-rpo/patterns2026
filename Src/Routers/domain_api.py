@@ -10,6 +10,7 @@ from Src.Logics.factory_domain_type import factory_domain_type
 from Src.Logics.prototype import prototype
 from Src.Logics.osv_service import osv_service
 from Src.Dtos.filter_dto import filter_dto
+from datetime import datetime
 
 class domain_router(abstract_router):
 
@@ -56,11 +57,11 @@ class domain_router(abstract_router):
         """Filter dto domains throught filter and return osv"""
         try:
             data = await request.json()
+            start = datetime.fromisoformat(data.pop("start_date"))
+            end = datetime.fromisoformat(data.pop("end_date"))
             filter: filter_dto = self.__get_filter(data)
-            items =  self.__get_items_domain(domain_type)
-            proto = self.__get_proto(items, filter)
 
-            report = self.__osv_service.build(proto)
+            report = self.__osv_service.build(start, end, filter)
             result = self.__convert_factory.serialize(report.rows)
 
             return JSONResponse(content=result, status_code=200)

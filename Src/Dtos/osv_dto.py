@@ -1,6 +1,5 @@
-
 """
-Class row for osv prototype
+Class row for osv report
 """
 class osv_row_dto:
     def __init__(
@@ -19,6 +18,9 @@ class osv_row_dto:
         self.expense = expense
         self.closing_balance = closing_balance
 
+"""
+OSV report as list of rows
+"""
 class osv_report_dto:
     def __init__(self, rows: list[osv_row_dto] | None = None):
         self.rows = rows or []
