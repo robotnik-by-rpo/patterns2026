@@ -1,0 +1,22 @@
+[2026-11-28T17:29:55.270022]	event=load_settings	params={'file': 'settings.json'}
+[2026-11-28T17:29:55.281615]	event=initing_units	params=None
+[2026-11-28T17:29:55.283212]	event=updating_units	params=None
+[2026-11-28T17:29:55.283621]	event=initing_groups	params=None
+[2026-11-28T17:29:55.283946]	event=updating_groups	params=None
+[2026-11-28T17:29:55.284706]	event=initing_company	params=None
+[2026-11-28T17:29:55.285407]	event=updating_company	params=None
+[2026-11-28T17:29:55.285776]	event=initing_nomenclature	params=None
+[2026-11-28T17:29:55.286448]	event=updating_nomenclature	params=None
+[2026-11-28T17:29:55.287244]	event=initing_warehouses	params=None
+[2026-11-28T17:29:55.287831]	event=updating_warehouses	params=None
+[2026-11-28T17:29:55.288286]	event=initing_tech_map	params=None
+[2026-11-28T17:29:55.291338]	event=initing_transaction	params=None
+[2026-11-28T17:29:55.293428]	event=change_settings	params={'settings': 'loaded'}
+[2026-11-28T17:29:55.328165]	event=initing_extension_router	params={'router': 'extension_router', 'prefix': ''}
+[2026-11-28T17:29:55.331156]	event=initing_domain_router	params={'router': 'domain_router', 'prefix': '/domain'}
+[2026-11-28T17:29:58.524661]	event=web_GET_/api/get_report	params=None
+[2026-11-28T17:29:58.526045]	event=getting_information_recipe_into_HTML_file	params={'domain': 'recipe', 'code': 'French baguette', 'extension': 'HTML'}
+[2026-11-28T17:29:59.756251]	event=web_GET_/api/get	params=None
+[2026-11-28T17:29:59.756860]	event=getting_extensions	params=None
+[2026-11-28T17:30:01.617122]	event=web_GET_/api/get_default_report	params=None
+[2026-11-28T17:30:01.618114]	event=getting_information_recipe_into_text/plain_file	params={'domain': 'recipe', 'code': 'French baguette', 'format': 'txt'}

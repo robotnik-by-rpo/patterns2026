@@ -6,6 +6,8 @@ from Src.Models.warehouse_model import warehouse_model
 from Src.Models.technical_map_model import technical_map_model
 from Src.Models.transaction_model import transaction_model
 import datetime
+from Src.Core.event_type import event_type
+from Src.Logics.observer import observer
 
 class initial_domain:
     def __new__(cls):
@@ -29,18 +31,22 @@ class initial_domain:
 
     def __init_tech_map(self) -> None:
         """Init tech map into storage manager"""
+        observer.create(event_type.init_tech_map())
         self.__storage.tech_maps["French baguette"] = technical_map_model.create_technical_map()
 
     def __init_company(self) -> None:
         """Init company into storage manager"""
+        observer.create(event_type.init_company())
         self.__storage.company = organization_model("Ромашка", "1350791749", "782189947", 
                                         "78328490185897461647", "ООО")
     def __init_groups(self) -> None:
         """Init groups into storage manager"""
+        observer.create(event_type.init_groups())
         self.__storage.groups_nomenclature = group_nomenclature_model.create_groups() 
 
     def __init_nomenclatures(self) -> None:
         """Creates and sets nomenclatures"""
+        observer.create(event_type.init_nomenclatures())
         kg = self.__storage.units_of_measurement["weight"]["kilogram"]
         groups = self.__storage.groups_nomenclature
 
@@ -55,6 +61,9 @@ class initial_domain:
 
     def __init_warehouses(self) -> None:
         """Creates and sets warehouses"""
+
+        observer.create(event_type.init_warehouses())
+
         m2 = self.__storage.units_of_measurement["square"]["square meter"]
         company = self.__storage.company
 
@@ -69,6 +78,7 @@ class initial_domain:
 
     def __init_units(self) -> None:
             """Creates and sets units of measurement"""
+            observer.create(event_type.init_units())
 
             g = unit_of_measurement_model.create_g()
             ml = unit_of_measurement_model.create_ml()
@@ -91,6 +101,8 @@ class initial_domain:
 
     def __init_transactions(self) -> None:
         """Method for creating transactions"""
+        observer.create(event_type.init_transactions())
+
         storage = self.__storage
         kg = storage.units_of_measurement["weight"]["kilogram"]
         
