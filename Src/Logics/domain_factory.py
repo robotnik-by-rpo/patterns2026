@@ -6,6 +6,8 @@ from Src.Models.organization_model import organization_model
 from Src.Models.warehouse_model import warehouse_model
 from Src.Models.technical_map_model import technical_map_model
 from Src.Core.exception import arguments_exception, not_exist_exception, operation_exception
+from Src.Core.event_type import event_type
+from Src.Logics.observer import observer
 
 """
 Class factory for interaction with the storage
@@ -86,7 +88,8 @@ class domain_factory:
             raise arguments_exception(
                 "object", f"unsupported type {type_target}"
             )
-            
+        observer.create(event_type.add_domain_storage(type_target),
+                        {"id":obj.id, "name": obj.name})
         handler(obj)
         return
 
@@ -95,6 +98,8 @@ class domain_factory:
         type_target = type(target).__name__
         if self.__mapping_remove.get(type_target, False):
             if self.__mapping_remove[type_target](target):
+                observer.create(event_type.remove_domain_storage(type_target),
+                                {"id":target.id, "name": target.name})
                 return
             
         raise not_exist_exception(

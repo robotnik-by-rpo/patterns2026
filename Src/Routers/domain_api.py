@@ -11,6 +11,8 @@ from Src.Logics.prototype import prototype
 from Src.Logics.osv_service import osv_service
 from Src.Dtos.filter_dto import filter_dto
 from datetime import datetime
+from Src.Logics.observer import observer
+from Src.Core.event_type import event_type
 
 class domain_router(abstract_router):
 
@@ -26,6 +28,8 @@ class domain_router(abstract_router):
             cls.__instance.prefix  = "/domain"
             cls.__instance.router = APIRouter(prefix=cls.__instance.prefix, tags=["domain"])
             cls.__instance._initing_paths()
+            observer.create(event_type.init_router_path(cls.__name__),
+                            {"router": cls.__name__, "prefix": cls.__instance.prefix})
         return cls.__instance
 
     def _initing_paths(self):
@@ -43,6 +47,9 @@ class domain_router(abstract_router):
         """Filter dto domains throught filter"""
         try:
             data = await request.json()
+
+            observer.create(event_type.web_request(request.method, request.url.path),data)
+
             filter: filter_dto = self.__get_filter(data)
             items = self.__get_items_domain(domain_type)
             proto = self.__get_proto(items, filter)
@@ -57,12 +64,17 @@ class domain_router(abstract_router):
         """Filter dto domains throught filter and return osv"""
         try:
             data = await request.json()
+
+            observer.create(event_type.web_request(request.method, request.url.path),data)
+
             start = datetime.fromisoformat(data.pop("start_date"))
             end = datetime.fromisoformat(data.pop("end_date"))
             filter: filter_dto = self.__get_filter(data)
 
             report = self.__osv_service.build(start, end, filter)
             result = self.__convert_factory.serialize(report.rows)
+
+            observer.create(event_type.post_osv_report())
 
             return JSONResponse(content=result, status_code=200)
         except Exception as ex:
@@ -87,22 +99,29 @@ class domain_router(abstract_router):
                     item["__class__"] = "filter_item_dto"
         return self.__convert_factory.deserialize({"__class__": "filter_dto", **data})
 
-    def get_storage_manager(self):
+    async def get_storage_manager(self, request: Request):
         """Getting all domain from storage manager"""
         try:
+            observer.create(event_type.web_request(request.method, request.url.path))
+
             raw_dict = self.__convert_factory.serialize(storage_manager())
+            observer.create(event_type.get_domains())        
+
             return Response(
                             content=json.dumps(raw_dict, ensure_ascii=False, indent=2),
                             media_type="application/json")
-        
         except Exception as ex:
             raise HTTPException(status_code=500, detail=str(ex))
 
-    async def post_domain(self, data: dict = Body(...)):
+    async def post_domain(self, request: Request, data: dict = Body(...)):
         """Adding new domain"""
         try:
+            observer.create(event_type.web_request(request.method, request.url.path), data)
             obj = self.__convert_factory.deserialize(data)
             self.__domain_restapi.create(obj)
+            observer.create(event_type.post_domain(type(obj).__name__),
+                            {"id": obj.id, "name": getattr(obj, "name", "")})
+            
             raw = self.__convert_factory.serialize(obj)
             return JSONResponse(content=raw, status_code=201)
         except (arguments_exception, operation_exception, not_exist_exception) as ex:
@@ -114,8 +133,12 @@ class domain_router(abstract_router):
         """Putting a domain"""
         try:
             data = await request.json()
+            observer.create(event_type.web_request(request.method, request.url.path), data)
+
             new_obj = self.__convert_factory.deserialize(data)
             updated = self.__domain_restapi.update(domain_id, new_obj)
+            observer.create(event_type.put_domain(type(updated).__name__),
+                            {"id": updated.id})
             raw = self.__convert_factory.serialize(updated)
             return JSONResponse(content=raw, status_code=200)
         except not_exist_exception as ex:
@@ -125,10 +148,14 @@ class domain_router(abstract_router):
         except Exception as ex:
             raise HTTPException(status_code=500, detail=str(ex))
 
-    async def delete_domain(self, domain_id: str, force: bool = False):
+    async def delete_domain(self, request: Request, domain_id: str, force: bool = False):
         """Deleting a domain"""
         try:
+            observer.create(event_type.web_request(request.method, request.url.path))
             self.__domain_restapi.delete(domain_id, force)
+            observer.create(event_type.delete_domain(domain_id),
+                            {"id": domain_id, "is_force": force})
+
             return Response(status_code=204)
         except not_exist_exception as ex:
             raise HTTPException(status_code=404, detail=str(ex))
@@ -143,6 +170,8 @@ class domain_router(abstract_router):
         """Patching a domain"""
         try:
             data = await request.json()
+            observer.create(event_type.web_request(request.method, request.url.path), data)
+            
             current = self.__domain_restapi.read(domain_id)
             current_raw = self.__convert_factory.serialize(current)
             if not isinstance(data, dict) or not isinstance(current_raw, dict):
@@ -151,6 +180,10 @@ class domain_router(abstract_router):
             merged = {**current_raw, **data}
             new_obj = self.__convert_factory.deserialize(merged)
             updated = self.__domain_restapi.update(domain_id, new_obj)
+
+            observer.create(event_type.patch_domain(type(updated).__name__),
+                            {"id": domain_id, "name": getattr(updated, "name", "")})
+            
             raw = self.__convert_factory.serialize(updated)
             return JSONResponse(content=raw, status_code=200)
         except not_exist_exception as ex:
@@ -160,11 +193,18 @@ class domain_router(abstract_router):
         except Exception as ex:
             raise HTTPException(status_code=500, detail=str(ex))
 
-    async def get_domain(self, domain_id: str):
+    async def get_domain(self, request: Request, domain_id: str):
         """Getting a domain"""
         try:
+            observer.create(event_type.web_request(request.method, request.url.path))
+
+
             obj = self.__domain_restapi.read(domain_id)
             raw = self.__convert_factory.serialize(obj)
+
+            observer.create(event_type.get_domain(type(obj).__name__),
+                            {"id": obj.id, "name": getattr(obj, "name", "")})
+
             return JSONResponse(content=raw, status_code=200)
         except not_exist_exception as ex:
             raise HTTPException(status_code=404, detail=str(ex))

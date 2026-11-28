@@ -4,10 +4,10 @@ from fastapi import FastAPI
 from Src.Logics.settings_manager import setting_manager
 from Src.API.router import server_API
 import uvicorn
-
+from Src.Logics.logger_observer import logger_observer
 
 app = FastAPI()
-
+logger_observer("app.log")
 setting_manager().load("settings.json") 
 store = storage_manager()
 server = server_API()

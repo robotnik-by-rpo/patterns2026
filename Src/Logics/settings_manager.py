@@ -7,17 +7,22 @@ from Src.Core.validate import validate
 from Src.Dtos.report_type_dto import report_type_enum
 from Src.Core.exception import arguments_exception
 from Src.Logics.convert_factory import convert_factory
+from Src.Core.abstract_observation import abstract_observation
+from Src.Core.event_type import event_type
+from Src.Logics.observer import observer
 
-class setting_manager(abstract_manager):
+class setting_manager(abstract_manager, abstract_observation):
     """Class storing settings"""
     __default_file: str = "settings.json"
     __settings: settings_model = None
 
-
+    __event_type: event_type = None
     def __init__(self):
         """Initing new settings"""
+        super().__init__()
         if self.__settings is None:
             self.__settings = settings_model()
+            observer.add(self)
 
     def __new__(cls):
         """singletone"""
@@ -28,6 +33,8 @@ class setting_manager(abstract_manager):
 
     def load(self, file_name = ""):
         """Upload new data from json file"""
+
+
         inner_file_name = file_name.strip() if file_name.strip() else self.__default_file
         inner_file_name = validate.validated_filename_settings(
             inner_file_name,
@@ -37,6 +44,8 @@ class setting_manager(abstract_manager):
         )
         try:
             with open(inner_file_name, "r", encoding="utf-8") as file:
+                observer.create(event_type.load_settings(), {"file": inner_file_name})
+
                 raw = json.load(file)
         except Exception:
             raise operation_exception("load", "Error uploading file and processing file")
@@ -46,6 +55,8 @@ class setting_manager(abstract_manager):
 
         try:
             deserialized = convert_factory().deserialize(raw)
+
+            observer.create(event_type.change_settings(), {"settings": "loaded"})
         except Exception as ex:
             raise operation_exception("deserialize", f"cannot deserialize settings: {ex}")
 
@@ -71,3 +82,10 @@ class setting_manager(abstract_manager):
                                                         "new settings",
                                                         "new settings must be not None",
                                                         arguments_exception)
+        observer.create(event_type.change_settings(), {"settings": "updated"})
+        
+    
+    def handler(self, event_types: str, params: object):
+        """Processing meassges"""
+        if event_types == event_type.change_settings():
+            print("Changed settings")

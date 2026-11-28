@@ -7,7 +7,8 @@ from Src.Models.warehouse_model import warehouse_model
 from Src.Core.abstract_manager import abstract_manager
 from Src.Core.validate import validate
 from Src.Core.exception import arguments_exception
-
+from Src.Core.event_type import event_type
+from Src.Logics.observer import observer
 from Src.Models.technical_map_model import technical_map_model
 from Src.Core.exception import not_exist_exception
 
@@ -84,6 +85,8 @@ class storage_manager(abstract_manager):
                                                           "new groups nomenclatures",
                                                           "new groups nomenclatures must be not None and not empty list",
                                                           arguments_exception)
+        observer.create(event_type.update_groups())
+
 
     @property
     def nomenclatures(self) -> dict[str,list[nomenclature_model]]:
@@ -97,6 +100,7 @@ class storage_manager(abstract_manager):
                                                                  "new nomenclatures",
                                                                  "new nomeclature must be not None and not empty list",
                                                                  arguments_exception)
+        observer.create(event_type.update_nomenclature())
     
     @property
     def warehouses(self) -> list[warehouse_model]:
@@ -110,6 +114,7 @@ class storage_manager(abstract_manager):
                                                               "new warehouses",
                                                               "new warehouses must be not None and not empty list",
                                                               arguments_exception)
+        observer.create(event_type.update_warehouses())
 
     @property
     def company(self) -> organization_model:
@@ -123,9 +128,22 @@ class storage_manager(abstract_manager):
                                                        "new company",
                                                        "new company must be not None",
                                                        arguments_exception)
+        observer.create(event_type.update_company())
+    
     @property
     def tech_maps(self) -> dict[str, technical_map_model]:
+        "Getter for tech maps"
         return self.__tech_maps
+    
+    @tech_maps.setter
+    def tech_maps(self, new_tech_maps: dict[str, technical_map_model]) -> None:
+        "Setter for tech maps"
+        self.__tech_maps = validate.validated_type(new_tech_maps, 
+                                                   dict[str, technical_map_model],
+                                                   "new tech maps",
+                                                   "new tech maps must be type dict[str, technical_map_model]",
+                                                   arguments_exception)
+        observer.create(event_type.update_tech_maps())
 
     @property
     def is_first(self) -> bool:
@@ -139,6 +157,7 @@ class storage_manager(abstract_manager):
                                                         "new flag",
                                                         "new flag must be bool, not None value",
                                                         arguments_exception)
+        observer.create(event_type.update_is_first())
 
     @property
     def units_of_measurement(self) -> dict[str, dict[str, unit_of_measurement_model]]:
@@ -152,6 +171,7 @@ class storage_manager(abstract_manager):
                                                      "new units",
                                                      "new units must be not None value",
                                                      arguments_exception)
+        observer.create(event_type.update_units())
 
     @property
     def transactions(self) -> dict[str, transaction_model]:
@@ -162,3 +182,4 @@ class storage_manager(abstract_manager):
     def transactions(self, new_transactions: dict[str, transaction_model]) -> None:
         """Setter for transactions"""
         self.__transactions = validate.validated_null_value(new_transactions)
+        observer.create(event_type.update_transactions())
