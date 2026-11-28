@@ -2,6 +2,7 @@ from Src.Models.group_nomenclature_model import group_nomenclature_model
 from Src.Models.nomenclature_model import nomenclature_model
 from Src.Models.organization_model import organization_model
 from Src.Models.unit_of_measurement_model import unit_of_measurement_model
+from Src.Models.transaction_model import transaction_model
 from Src.Models.warehouse_model import warehouse_model
 from Src.Core.abstract_manager import abstract_manager
 from Src.Core.validate import validate
@@ -21,6 +22,7 @@ class storage_manager(abstract_manager):
     __groups: dict[str, group_nomenclature_model] = {}
     __is_first : bool = True
     __tech_maps: dict[str, technical_map_model] = {}
+    __transactions: dict[str, transaction_model] = {}
 
     def __new__(cls):
         """Singletone"""
@@ -45,6 +47,7 @@ class storage_manager(abstract_manager):
         self.__warehouses = {}
         self.__groups = {}
         self.__tech_maps = {}
+        self.__transactions = {}
         self.__is_first = self.convert()
 
 
@@ -149,3 +152,13 @@ class storage_manager(abstract_manager):
                                                      "new units",
                                                      "new units must be not None value",
                                                      arguments_exception)
+
+    @property
+    def transactions(self) -> dict[str, transaction_model]:
+        """Getter for transactions"""
+        return self.__transactions
+
+    @transactions.setter
+    def transactions(self, new_transactions: dict[str, transaction_model]) -> None:
+        """Setter for transactions"""
+        self.__transactions = validate.validated_null_value(new_transactions)
